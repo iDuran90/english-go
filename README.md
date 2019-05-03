@@ -1,1 +1,1 @@
-# english-go
+# English GO!
