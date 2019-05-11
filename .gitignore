@@ -363,6 +363,9 @@ MigrationBackup/
 
 # TextMesh Pro files
 [Aa]ssets/TextMesh*Pro/
+EnglishGo/[Aa]ssets/Mapbox SDK/
+EnglishGo/[Aa]ssets/Resources/Mapbox
+EnglishGo/ProjectSettings
 
 # Visual Studio cache directory
 
