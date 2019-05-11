@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
   [SerializeField] private Text xpText;
@@ -25,6 +26,13 @@ public class UIManager : MonoBehaviour {
 
   public void toggleMenu(int level) {
     menu.SetActive(!menu.activeSelf);
+  }
+
+  public void toggleScene() {
+    SceneManager.LoadSceneAsync(PocketDroidConstants.SCENE_CAMERA_AR);
+    SceneManager.sceneLoaded += (newScene, mode) => {
+      SceneManager.SetActiveScene(newScene);
+    };
   }
 
   private void Update()
