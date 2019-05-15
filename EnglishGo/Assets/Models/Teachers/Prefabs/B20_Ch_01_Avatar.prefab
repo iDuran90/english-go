@@ -456,6 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4827324919176084}
   - component: {fileID: 95469817142865674}
+  - component: {fileID: 114485773972788858}
   m_Layer: 0
   m_Name: B20_Ch_01_Avatar
   m_TagString: Untagged
@@ -1073,6 +1074,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114485773972788858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1745315555470622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4cd74a21310a14e8cb8755e95c7dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  latitude: 0
+  longitude: 0
 --- !u!137 &137515748800218374
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

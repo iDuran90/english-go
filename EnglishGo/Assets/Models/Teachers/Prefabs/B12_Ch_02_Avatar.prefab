@@ -531,6 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4871829704553226}
   - component: {fileID: 95460210892447846}
+  - component: {fileID: 114137551339507496}
   m_Layer: 0
   m_Name: B12_Ch_02_Avatar
   m_TagString: Untagged
@@ -1008,7 +1009,7 @@ Transform:
   m_GameObject: {fileID: 1954534267710822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 500, y: 500, z: 500}
   m_Children:
   - {fileID: 4251702406644836}
   - {fileID: 4082367692587742}
@@ -1073,6 +1074,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114137551339507496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954534267710822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4cd74a21310a14e8cb8755e95c7dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  latitude: 6.264446
+  longitude: -75.57743
 --- !u!137 &137870872386787012
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
