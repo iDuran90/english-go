@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
   [SerializeField] private int requiredXp = 100;
   [SerializeField] private int levelBase = 100;
   [SerializeField] private List<GameObject> droids = new List<GameObject>();
+  public string debugMsg;
   private int level = 1;
 
   private string path;
@@ -58,6 +59,10 @@ public class Player : MonoBehaviour {
   public void InitLevelData() {
     level = (xp / levelBase) + 1;
     requiredXp = levelBase * level;
+  }
+
+  public void CalculateDistance() {
+    Debug.Log(this.transform.localPosition);
   }
 
   private void initLevelData() {

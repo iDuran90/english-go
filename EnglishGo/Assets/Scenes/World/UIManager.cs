@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour {
   [SerializeField] private Text xpText;
   [SerializeField] private Text levelText;
   [SerializeField] private GameObject menu;
+  [SerializeField] private Text debugText;
 
   public void Awake() {
     Assert.IsNotNull(xpText);
@@ -24,12 +25,17 @@ public class UIManager : MonoBehaviour {
     xpText.text = GameManager.Instance.CurrentPlayer.Xp.ToString() + " / " + GameManager.Instance.CurrentPlayer.RequiredXp.ToString();
   }
 
+  public void updateDebugText()
+  {
+    debugText.text = GameManager.Instance.CurrentPlayer.debugMsg;
+  }
+
   public void toggleMenu(int level) {
     menu.SetActive(!menu.activeSelf);
   }
 
   public void toggleScene() {
-    SceneManager.LoadSceneAsync(PocketDroidConstants.SCENE_CAMERA_AR);
+    SceneManager.LoadSceneAsync(EnglishGoConstants.SCENE_CAMERA_AR);
     SceneManager.sceneLoaded += (newScene, mode) => {
       SceneManager.SetActiveScene(newScene);
     };
@@ -39,5 +45,6 @@ public class UIManager : MonoBehaviour {
   {
     updateLevel();
     updateXP();
+    updateDebugText();
   }
 }

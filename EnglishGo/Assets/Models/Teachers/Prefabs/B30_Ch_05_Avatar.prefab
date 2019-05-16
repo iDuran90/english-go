@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 4357540483046180}
   - component: {fileID: 95323168548607950}
   - component: {fileID: 114452903241087224}
+  - component: {fileID: 65222549061233494}
   m_Layer: 0
   m_Name: B30_Ch_05_Avatar
   m_TagString: Untagged
@@ -753,7 +754,7 @@ Transform:
   m_GameObject: {fileID: 1103654898294298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 500, y: 500, z: 500}
   m_Children:
   - {fileID: 4274625060071352}
   - {fileID: 4126955707080816}
@@ -1057,6 +1058,18 @@ Transform:
   m_Father: {fileID: 4660600696599718}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65222549061233494
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1103654898294298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.005, y: 0.01, z: 0.005}
+  m_Center: {x: 0, y: 0.005, z: 0}
 --- !u!95 &95323168548607950
 Animator:
   serializedVersion: 3
@@ -1085,9 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4cd74a21310a14e8cb8755e95c7dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  latitude: 0
-  longitude: 0
+  name: sports
 --- !u!137 &137291019768979628
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

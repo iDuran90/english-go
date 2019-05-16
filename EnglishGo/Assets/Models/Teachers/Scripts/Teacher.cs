@@ -1,11 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Mapbox.Utils;
+using Mapbox.Unity.Location;
 using UnityEngine;
 
 public class Teacher : MonoBehaviour {
   [SerializeField] private string name;
-  [SerializeField] private double latitude = 0;
-  [SerializeField] private double longitude = 0;
+  [SerializeField] private GameObject player;
+
+  public double latitude { get; set; }
+  public double longitude { get; set; }
 
   public string Name
   {
@@ -15,30 +18,34 @@ public class Teacher : MonoBehaviour {
     }
   }
 
-  public double Latitude
-  {
-    get
-    {
-      return latitude;
-    }
-  }
-
-  public double Longitude
-  {
-    get
-    {
-      return longitude;
-    }
-  }
-
   private void Start()
   {
     DontDestroyOnLoad(this);
+    StartCoroutine("DoCheck");
   }
 
-  private void OnMouseDown()
+  IEnumerator DoCheck()
   {
-    // open camera view with related AR objects
+    for (; ; ) {
+      GameManager.Instance.CurrentPlayer.debugMsg = "location es: " + LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+      //0.0005
+      yield return new WaitForSeconds(10f);
+    }
+  }
 
+  private void OnMouseDown() {
+    var map = GameManager.Instance.MapCenter;
+    var location = GameManager.Instance.PlayerLocation;
+    var localLocation = GameManager.Instance.PlayerLocalLocation;
+
+    GameManager.Instance.CurrentPlayer.CalculateDistance();
+    //var player = GameManager.Instance.CurrentPlayer;
+    //Debug.Log(map);
+
+    //float distanceToPlayer = Vector3.Distance(new Vector2d(this.latitude, this.longitude), );
+    //double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), map.WorldToGeoPosition(player.transform.localPosition));
+
+    //GameManager.Instance.CurrentPlayer.debugMsg = "estas a: " + distanceToPlayer;
+    //GameManager.Instance.CurrentPlayer.debugMsg = "location es: " + location + " Y local location es: " + localLocation;
   }
 }
