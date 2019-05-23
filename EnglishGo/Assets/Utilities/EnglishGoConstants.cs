@@ -5,6 +5,7 @@ using UnityEngine;
 public static class EnglishGoConstants {
   public static string SCENE_WORLD = "world";
   public static string SCENE_CAMERA_AR = "Camera AR";
+  public static string SCENE_SPORTS = "Sports";
 
   public static List<TeacherDefinition> GetTeacherDefinitions() {
     var teacherDefinitions = new List<TeacherDefinition>();

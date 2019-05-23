@@ -2,10 +2,15 @@
 using Mapbox.Utils;
 using Mapbox.Unity.Location;
 using UnityEngine;
+//using Kudan.AR.Samples;
+using UnityEngine.SceneManagement;
 
 public class Teacher : MonoBehaviour {
   [SerializeField] private string name;
   [SerializeField] private GameObject player;
+  //public SampleApp sa;
+
+  private const double DISTANCE_THRESHOLD = 0.0002;
 
   public double latitude { get; set; }
   public double longitude { get; set; }
@@ -21,31 +26,25 @@ public class Teacher : MonoBehaviour {
   private void Start()
   {
     DontDestroyOnLoad(this);
-    StartCoroutine("DoCheck");
-  }
-
-  IEnumerator DoCheck()
-  {
-    for (; ; ) {
-      GameManager.Instance.CurrentPlayer.debugMsg = "location es: " + LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
-      //0.0005
-      yield return new WaitForSeconds(10f);
-    }
   }
 
   private void OnMouseDown() {
-    var map = GameManager.Instance.MapCenter;
-    var location = GameManager.Instance.PlayerLocation;
-    var localLocation = GameManager.Instance.PlayerLocalLocation;
+    var playerLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
 
     GameManager.Instance.CurrentPlayer.CalculateDistance();
-    //var player = GameManager.Instance.CurrentPlayer;
-    //Debug.Log(map);
 
-    //float distanceToPlayer = Vector3.Distance(new Vector2d(this.latitude, this.longitude), );
-    //double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), map.WorldToGeoPosition(player.transform.localPosition));
+    double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), playerLocation);
 
-    //GameManager.Instance.CurrentPlayer.debugMsg = "estas a: " + distanceToPlayer;
-    //GameManager.Instance.CurrentPlayer.debugMsg = "location es: " + location + " Y local location es: " + localLocation;
+    if (distanceToPlayer < DISTANCE_THRESHOLD) {
+      // Begin activity
+      SceneManager.LoadSceneAsync(EnglishGoConstants.SCENE_SPORTS);
+      SceneManager.sceneLoaded += (newScene, mode) => {
+        SceneManager.SetActiveScene(newScene);
+      };
+    }
+    else {
+      // display GET_CLOSER_MSG
+      GameManager.Instance.CurrentPlayer.debugMsg = Internationalization.GET_CLOSER_MSG;
+    }
   }
 }

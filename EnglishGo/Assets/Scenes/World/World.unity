@@ -1976,7 +1976,7 @@ MonoBehaviour:
   _autoFireEvent: 1
   _updateInterval: 0.1
   _sendEvent: 0
-  _latitudeLongitude: 6.262588, -75.576973
+  _latitudeLongitude: 6.2635, -75.5765
   _targetTransform: {fileID: 0}
 --- !u!1 &1041993897
 GameObject:
