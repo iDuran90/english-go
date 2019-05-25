@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WorldSceneManager : PocketDroidsSceneManager {
+  public AudioSource audio;
+
   void Start () {
-		
+    if (GameManager.Instance.CurrentPlayer.muteSounds) {
+      audio.Stop();
+    }
 	}
 	
 	void Update () {

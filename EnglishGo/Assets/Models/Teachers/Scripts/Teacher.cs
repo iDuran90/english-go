@@ -2,13 +2,10 @@
 using Mapbox.Utils;
 using Mapbox.Unity.Location;
 using UnityEngine;
-//using Kudan.AR.Samples;
 using UnityEngine.SceneManagement;
 
 public class Teacher : MonoBehaviour {
   [SerializeField] private string name;
-  [SerializeField] private GameObject player;
-  //public SampleApp sa;
 
   private const double DISTANCE_THRESHOLD = 0.0002;
 
@@ -25,7 +22,7 @@ public class Teacher : MonoBehaviour {
 
   private void Start()
   {
-    DontDestroyOnLoad(this);
+    //DontDestroyOnLoad(this);
   }
 
   private void OnMouseDown() {
@@ -37,14 +34,10 @@ public class Teacher : MonoBehaviour {
 
     if (distanceToPlayer < DISTANCE_THRESHOLD) {
       // Begin activity
-      SceneManager.LoadSceneAsync(EnglishGoConstants.SCENE_SPORTS);
-      SceneManager.sceneLoaded += (newScene, mode) => {
-        SceneManager.SetActiveScene(newScene);
-      };
+      GameManager.Instance.CurrentPlayer.startActivity = EnglishGoConstants.SCENE_SPORTS;
     }
     else {
-      // display GET_CLOSER_MSG
-      GameManager.Instance.CurrentPlayer.debugMsg = Internationalization.GET_CLOSER_MSG;
+      GameManager.Instance.CurrentPlayer.showGetCloser = true;
     }
   }
 }

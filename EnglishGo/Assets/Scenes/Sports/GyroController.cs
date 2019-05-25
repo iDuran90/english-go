@@ -26,7 +26,7 @@ public class GyroController : MonoBehaviour {
       gyro.enabled = true;
 
       cameraContainer.transform.rotation = Quaternion.Euler(90f, 90f, 0f);
-      rot = new Quaternion(0, 0, 0, 0);
+      rot = new Quaternion(0, 0, 1, 0);
 
       return true;
     }
@@ -37,7 +37,10 @@ public class GyroController : MonoBehaviour {
   IEnumerator DoCheck()
   {
     for (; ; ) {
-      text.text = gyro.attitude.ToString() + "\n" + transform.localRotation.ToString();
+      if (gyroEnabled) {
+        text.text = gyro.attitude.ToString() + "\n" + transform.localRotation.ToString();
+        //text.text = transform.localRotation.ToString();
+      }
 
       yield return new WaitForSeconds(1f);
     }

@@ -9,7 +9,9 @@ public class Player : MonoBehaviour {
   [SerializeField] private int requiredXp = 100;
   [SerializeField] private int levelBase = 100;
   [SerializeField] private List<GameObject> droids = new List<GameObject>();
-  public string debugMsg;
+  public string startActivity = "";
+  public bool showGetCloser = false;
+  public bool muteSounds;
   private int level = 1;
 
   private string path;
