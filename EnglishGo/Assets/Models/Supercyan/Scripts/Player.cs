@@ -8,10 +8,25 @@ public class Player : MonoBehaviour {
   [SerializeField] private int xp = 0;
   [SerializeField] private int requiredXp = 100;
   [SerializeField] private int levelBase = 100;
-  [SerializeField] private List<GameObject> droids = new List<GameObject>();
+  [SerializeField] private List<string> progress = new List<string>();
   public string startActivity = "";
   public bool showGetCloser = false;
   public bool muteSounds;
+  public bool showOnBoardMenu;
+  private string userName;
+
+  public string UserName {
+    get { return userName; }
+    set { userName = value; }
+  }
+
+  private string userGender;
+
+  public string UserGender {
+    get { return userGender; }
+    set { userGender = value; }
+  }
+
   private int level = 1;
 
   private string path;
@@ -30,15 +45,18 @@ public class Player : MonoBehaviour {
     get { return levelBase; }
   }
 
-  public List<GameObject> Droids
+  public List<string> Progress
   {
-    get { return droids; }
+    get { return progress; }
   }
 
   public int Level { get { return level; } }
 
   void Start () {
     path = Application.persistentDataPath + "/player.dat";
+    Debug.Log("Player Object Start");
+    
+    Load();
   }
 	
   public void AddXp(int xp) {
@@ -49,16 +67,16 @@ public class Player : MonoBehaviour {
       this.level++;
     }
 
-    save();
+    Save();
   }
 
-  public void AddDroid(GameObject droid) {
-    droids.Add(droid);
+  public void AddProgress(string newProgress) {
+    progress.Add(newProgress);
 
-    save();
+    Save();
   }
 
-  public void InitLevelData() {
+  private void InitLevelData() {
     level = (xp / levelBase) + 1;
     requiredXp = levelBase * level;
   }
@@ -67,12 +85,7 @@ public class Player : MonoBehaviour {
     Debug.Log(this.transform.localPosition);
   }
 
-  private void initLevelData() {
-    level = (xp / levelBase) + 1;
-    requiredXp = levelBase * level;
-  }
-
-  private void save() {
+  public void Save() {
     BinaryFormatter bf = new BinaryFormatter();
     FileStream file = File.Create(path);
     PlayerData data = new PlayerData(this);
@@ -80,26 +93,23 @@ public class Player : MonoBehaviour {
     file.Close();
   }
 
-  private void load() {
+  private void Load() {
     if (File.Exists(path)) {
       BinaryFormatter bf = new BinaryFormatter();
       FileStream file = File.Open(path, FileMode.Open);
       PlayerData data = (PlayerData)bf.Deserialize(file);
       file.Close();
 
+      showOnBoardMenu = data.ShowOnBoardMenu;
       xp = data.Xp;
       requiredXp = data.RequiredXp;
       levelBase = data.LevelBase;
       level = data.Level;
-
-      //foreach (DroidData droidData in data.Droids)
-      //{
-      //  Droid droid = new Droid();
-      //  droid.loadFromDroidData(droidData);
-      //  addDroid(droid.gameObject);
-      //}
+      userName = data.UserName;
+      userGender = data.UserGender;
     } else {
-      initLevelData();
+      showOnBoardMenu = true;
+      InitLevelData();
     }
   }
 }

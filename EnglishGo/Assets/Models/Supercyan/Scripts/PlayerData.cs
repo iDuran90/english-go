@@ -10,19 +10,27 @@ public class PlayerData {
   private int requiredXp;
   private int levelBase;
   private int level;
-  //private List<DroidData> droids;
+  private bool showOnBoardMenu;
+  private string userName;
+  private string userGender;
 
+  public string UserName { get { return userName; } }
+  public string UserGender { get { return userGender; } }
   public int Xp { get { return xp; } }
   public int RequiredXp { get { return requiredXp; } }
   public int LevelBase { get { return levelBase; } }
   public int Level { get { return level; } }
+  public bool ShowOnBoardMenu { get { return showOnBoardMenu; } }
   //public List<DroidData> Droids { get { return droids; } }
 
   public PlayerData(Player player) {
+    showOnBoardMenu = player.showOnBoardMenu;
     xp = player.Xp;
     requiredXp = player.RequiredXp;
     levelBase = player.LevelBase;
     level = player.Level;
+    userName = player.UserName;
+    userGender = player.UserGender;
 
     //foreach (GameObject droidObject in player.Droids) {
     //  Droid droid = droidObject.GetComponent<Droid>();

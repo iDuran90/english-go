@@ -7,6 +7,9 @@ public static class EnglishGoConstants {
   public static string SCENE_CAMERA_AR = "Camera AR";
   public static string SCENE_SPORTS = "Sports";
 
+  public static string FEMALE_GENDER = "FEMALE";
+  public static string MALE_GENDER = "MALE";
+
   public static List<TeacherDefinition> GetTeacherDefinitions() {
     var teacherDefinitions = new List<TeacherDefinition>();
 
