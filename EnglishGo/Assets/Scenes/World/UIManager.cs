@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour {
   [SerializeField] private GameObject getCloserMsg;
   [SerializeField] private GameObject profileMenu;
   [SerializeField] private GameObject onBoardMenu;
+  [SerializeField] private GameObject tutorialMenu;
   [SerializeField] private GameObject map;
   [SerializeField] private GameObject malePlayer;
   [SerializeField] private GameObject femalePlayer;
@@ -26,9 +27,6 @@ public class UIManager : MonoBehaviour {
   [SerializeField] private InputField nameInput;
   [SerializeField] private Text maleBtnText;
   [SerializeField] private Text femaleBtnText;
-  [SerializeField] private Button maleBtn;
-  [SerializeField] private Button femaleBtn;
-  [SerializeField] private Button acceptOnBoardBtn;
   [SerializeField] private GameObject menuButton;
   [SerializeField] private Button soundOn;
   [SerializeField] private Button soundOff;
@@ -60,6 +58,13 @@ public class UIManager : MonoBehaviour {
   }
 
   public void OnAcceptOnBoardBtnClicked() {
+    onBoardMenu.SetActive(false);
+    tutorialMenu.SetActive(true);
+  }
+
+  public void OnAcceptTutorialBtnClicked() {
+    tutorialMenu.SetActive(false);
+
     var userName = nameInput.text.Trim(); 
     if (userName.Length == 0) {
       userName = "Learner" + new Random().Next(100, 999).ToString();
@@ -74,6 +79,7 @@ public class UIManager : MonoBehaviour {
     GameManager.Instance.CurrentPlayer.UserName = userName;
     GameManager.Instance.CurrentPlayer.UserGender = genderSelected;
     GameManager.Instance.CurrentPlayer.showOnBoardMenu = false;
+    GameManager.Instance.CurrentPlayer.muteSounds = false;
 
     GameManager.Instance.CurrentPlayer.Save();
   }
@@ -92,11 +98,13 @@ public class UIManager : MonoBehaviour {
 
   public void ToogleSound() {
     if (audio.isPlaying) {
-      GameManager.Instance.CurrentPlayer.muteSounds = true;
       audio.Stop();
+      GameManager.Instance.CurrentPlayer.muteSounds = true;
+      GameManager.Instance.CurrentPlayer.Save();
     } else {
-      GameManager.Instance.CurrentPlayer.muteSounds = false;
       audio.Play();
+      GameManager.Instance.CurrentPlayer.muteSounds = false;
+      GameManager.Instance.CurrentPlayer.Save();
     }
 
     menu.SetActive(!menu.activeSelf);
@@ -122,20 +130,30 @@ public class UIManager : MonoBehaviour {
     if (GameManager.Instance.CurrentPlayer.showOnBoardMenu) {
       onBoardMenu.SetActive(true);
     } else {
-      onBoardMenu.SetActive(false);
-      map.SetActive(true);
-      menuButton.SetActive(true);
-      profileMenu.SetActive(true);
-      nameText.text = GameManager.Instance.CurrentPlayer.UserName;
-      
+      if (!map.activeSelf) {
+        onBoardMenu.SetActive(false);
+        map.SetActive(true);
+        menuButton.SetActive(true);
+        profileMenu.SetActive(true);
+        nameText.text = GameManager.Instance.CurrentPlayer.UserName;  
+      }
 
-      if (GameManager.Instance.CurrentPlayer.UserGender == EnglishGoConstants.MALE_GENDER) {
+      if (GameManager.Instance.CurrentPlayer.UserGender == EnglishGoConstants.MALE_GENDER && !malePlayer.activeSelf) {
         malePlayer.SetActive(true);
         maleAvatar.SetActive(true);
-      }
-      else {
+      } else if (GameManager.Instance.CurrentPlayer.UserGender == EnglishGoConstants.FEMALE_GENDER && !femalePlayer.activeSelf) {
         femalePlayer.SetActive(true);
         femaleAvatar.SetActive(true);
+      }
+
+      if (GameManager.Instance.CurrentPlayer.muteSounds) {
+        if (audio.isPlaying) {
+          audio.Stop();
+        }
+      } else {
+        if (!audio.isPlaying) {
+          audio.Play();
+        }
       }
     }
     

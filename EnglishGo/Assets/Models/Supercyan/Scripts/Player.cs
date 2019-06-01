@@ -107,6 +107,7 @@ public class Player : MonoBehaviour {
       level = data.Level;
       userName = data.UserName;
       userGender = data.UserGender;
+      muteSounds = data.MuteSounds;
     } else {
       showOnBoardMenu = true;
       InitLevelData();

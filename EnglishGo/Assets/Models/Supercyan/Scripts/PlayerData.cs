@@ -11,6 +11,7 @@ public class PlayerData {
   private int levelBase;
   private int level;
   private bool showOnBoardMenu;
+  private bool muteSounds;
   private string userName;
   private string userGender;
 
@@ -21,6 +22,7 @@ public class PlayerData {
   public int LevelBase { get { return levelBase; } }
   public int Level { get { return level; } }
   public bool ShowOnBoardMenu { get { return showOnBoardMenu; } }
+  public bool MuteSounds { get { return muteSounds; } }
   //public List<DroidData> Droids { get { return droids; } }
 
   public PlayerData(Player player) {
@@ -31,6 +33,7 @@ public class PlayerData {
     level = player.Level;
     userName = player.UserName;
     userGender = player.UserGender;
+    muteSounds = player.muteSounds;
 
     //foreach (GameObject droidObject in player.Droids) {
     //  Droid droid = droidObject.GetComponent<Droid>();
