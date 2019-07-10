@@ -6,7 +6,7 @@ public class InteractiveObject : MonoBehaviour {
   public AudioSource word;
   public AudioSource example1;
   public AudioSource example2;
-  public GameObject lesson;
+  public Lesson lesson;
   public Button homeButton;
   public Button closeButton;
   public Button example1Btn;
@@ -28,10 +28,10 @@ public class InteractiveObject : MonoBehaviour {
 
   private void OnMouseDown()
   {
-    if (!lesson.activeSelf) {
+    if (!lesson.lessonObj.activeSelf) {
       word.Play();
       homeButton.gameObject.SetActive(false);
-      lesson.SetActive(true);
+      lesson.lessonObj.SetActive(true);
       example1Btn.onClick.AddListener(PlayExample1);
       example2Btn.onClick.AddListener(PlayExample2);
       closeButton.onClick.AddListener(CloseLesson);
@@ -69,8 +69,9 @@ public class InteractiveObject : MonoBehaviour {
   {
     if (!IsSomethingPlaying())
     {
+      GameManager.Instance.CurrentPlayer.AddBlueCoins(lesson.id);
       homeButton.gameObject.SetActive(true);
-      lesson.SetActive(false);
+      lesson.lessonObj.SetActive(false);
     }
   }
 }

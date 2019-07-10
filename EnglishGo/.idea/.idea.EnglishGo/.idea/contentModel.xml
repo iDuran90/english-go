@@ -6,6 +6,23 @@
     <e p="C:\Users\Jorge\Documents\repos\english-go\EnglishGo" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets\ActivityTakenUIManager.cs" t="Include" />
+      <e p="Assets\AfterChallengeMenuUIManager.cs" t="Include" />
+      <e p="Assets\AfterSearchMenuUIManager.cs" t="Include" />
+      <e p="Assets\ChallengeDefinition.cs" t="Include" />
+      <e p="Assets\ChallengeGetCloserMenuUIManager.cs" t="Include" />
+      <e p="Assets\ChallengePoint.cs" t="Include" />
+      <e p="Assets\ChallengePointFactory.cs" t="Include" />
+      <e p="Assets\ExerciseDefinition.cs" t="Include" />
+      <e p="Assets\FeedbackMenuManager.cs" t="Include" />
+      <e p="Assets\Gems Ultimate Pack" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="AnimationScript.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\GiroBallManager.cs" t="Include" />
+      <e p="Assets\HangmanGameManager.cs" t="Include" />
+      <e p="Assets\HoleControlScript.cs" t="Include" />
       <e p="Assets\i18n" t="Include">
         <e p="lang" t="Include">
           <e p="es_ES.cs" t="Include" />
@@ -69,6 +86,8 @@
           </e>
         </e>
       </e>
+      <e p="Assets\Lesson.cs" t="Include" />
+      <e p="Assets\LessonTakenUIManager.cs" t="Include" />
       <e p="Assets\Mapbox SDK" t="Include">
         <e p="GoogleARCore" t="Include">
           <e p="Examples" t="Include">
@@ -877,6 +896,8 @@
           <e p="UnityARKitPluginSettings.cs" t="Include" />
         </e>
       </e>
+      <e p="Assets\MemoryGameItemDefinition.cs" t="Include" />
+      <e p="Assets\MemoryGameManager.cs" t="Include" />
       <e p="Assets\Mobile Game GUI Vector Pack" t="Include">
         <e p="DEMO_Scripts" t="Include">
           <e p="DEMO_CreateWindowShareLink.cs" t="Include" />
@@ -904,19 +925,21 @@
           </e>
         </e>
       </e>
+      <e p="Assets\OnboardMenuUIManager.cs" t="Include" />
       <e p="Assets\Resources" t="Include">
         <e p="Mapbox" t="Include">
           <e p="MapboxConfiguration.txt" t="Include" />
         </e>
       </e>
       <e p="Assets\Scenes" t="Include">
+        <e p="Animals" t="Include">
+          <e p="AnimalsTestUIManager.cs" t="Include" />
+          <e p="GyroController.cs" t="Include" />
+        </e>
         <e p="Camera AR" t="Include">
           <e p="CameraARSceneManager.cs" t="Include" />
           <e p="CameraARUIManager.cs" t="Include" />
           <e p="CameraManager.cs" t="Include" />
-        </e>
-        <e p="Sports" t="Include">
-          <e p="GyroController.cs" t="Include" />
         </e>
         <e p="World" t="Include">
           <e p="PinchZoom.cs" t="Include" />
@@ -924,13 +947,20 @@
           <e p="WorldSceneManager.cs" t="Include" />
         </e>
       </e>
+      <e p="Assets\SearchGetCloserMenuUIManager.cs" t="Include" />
+      <e p="Assets\SearchPoint.cs" t="Include" />
+      <e p="Assets\SearchPointFactory.cs" t="Include" />
       <e p="Assets\SportsUIManager.cs" t="Include" />
+      <e p="Assets\StarsSectionUIManager.cs" t="Include" />
+      <e p="Assets\StartChallengeMenuUIManager.cs" t="Include" />
+      <e p="Assets\StartSearchMenuUIManager.cs" t="Include" />
+      <e p="Assets\ThinkFastManager.cs" t="Include" />
+      <e p="Assets\TutorialMenuUIManager.cs" t="Include" />
       <e p="Assets\Utilities" t="Include">
         <e p="EnglishGoConstants.cs" t="Include" />
         <e p="GameManager.cs" t="Include" />
         <e p="InteractiveObject.cs" t="Include" />
         <e p="PocketDroidsSceneManager.cs" t="Include" />
-        <e p="PositionUtils.cs" t="Include" />
         <e p="SceneTransitionManager.cs" t="Include" />
         <e p="Singleton.cs" t="Include" />
         <e p="TeacherFactory.cs" t="Include" />

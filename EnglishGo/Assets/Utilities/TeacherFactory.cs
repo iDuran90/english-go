@@ -12,7 +12,7 @@ public class TeacherFactory : Singleton<TeacherFactory>
   [SerializeField] private AbstractMap abstractMap;
   private List<Teacher> liveTeachers = new List<Teacher>();
   private Teacher selectedTeacher;
-  private List<TeacherDefinition> teacherDefinitions;
+  private List<SearchPointDefinition> teacherDefinitions;
   private Player player;
 
   public Teacher SelectedTeacher
@@ -29,7 +29,7 @@ public class TeacherFactory : Singleton<TeacherFactory>
   {
     player = GameManager.Instance.CurrentPlayer;
     Assert.IsNotNull(player);
-    teacherDefinitions = EnglishGoConstants.GetTeacherDefinitions();
+    teacherDefinitions = EnglishGoConstants.GetSearchPointDefinitions();
 
     for (int i = 0; i < teachers.Length; i++)
     {
@@ -54,7 +54,7 @@ public class TeacherFactory : Singleton<TeacherFactory>
   private void InstantiateTeacher(Teacher teacher) {
     var instance = Instantiate(teacher);
 
-    TeacherDefinition definition = teacherDefinitions.Find(x => x.id == teacher.Name);
+    SearchPointDefinition definition = teacherDefinitions.Find(x => x.id == teacher.SceneToTrigger);
     instance.latitude = definition.lat;
     instance.longitude = definition.lon;
 

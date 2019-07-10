@@ -531,8 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4871829704553226}
   - component: {fileID: 95460210892447846}
-  - component: {fileID: 114137551339507496}
-  - component: {fileID: 65256491716121922}
+  - component: {fileID: 114251223152079612}
   m_Layer: 0
   m_Name: B12_Ch_02_Avatar
   m_TagString: Untagged
@@ -1058,18 +1057,6 @@ Transform:
   m_Father: {fileID: 4168487809569628}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65256491716121922
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1954534267710822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.005, y: 0.01, z: 0.005}
-  m_Center: {x: 0, y: 0.005, z: 0}
 --- !u!95 &95460210892447846
 Animator:
   serializedVersion: 3
@@ -1079,7 +1066,7 @@ Animator:
   m_GameObject: {fileID: 1954534267710822}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 30eacfcb4c137bf4a9aaa3266373bd9f, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 512a4ca60bae6a940bf8db03227a1ee0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1087,7 +1074,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114137551339507496
+--- !u!114 &114251223152079612
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1098,7 +1085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4cd74a21310a14e8cb8755e95c7dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: library
+  sceneToTrigger: Office
 --- !u!137 &137870872386787012
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

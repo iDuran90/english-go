@@ -5,18 +5,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Teacher : MonoBehaviour {
-  [SerializeField] private string name;
+  [SerializeField] private string sceneToTrigger;
 
   private const double DISTANCE_THRESHOLD = 0.0002;
 
   public double latitude { get; set; }
   public double longitude { get; set; }
 
-  public string Name
+  public string SceneToTrigger
   {
     get
     {
-      return name;
+      return sceneToTrigger;
     }
   }
 
@@ -26,18 +26,24 @@ public class Teacher : MonoBehaviour {
   }
 
   private void OnMouseDown() {
-    var playerLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+//    var playerLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+//
+//    GameManager.Instance.CurrentPlayer.CalculateDistance();
+//
+//    double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), playerLocation);
 
-    GameManager.Instance.CurrentPlayer.CalculateDistance();
-
-    double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), playerLocation);
-
-    if (distanceToPlayer < DISTANCE_THRESHOLD) {
-      // Begin activity
-      GameManager.Instance.CurrentPlayer.startActivity = EnglishGoConstants.SCENE_SPORTS;
-    }
-    else {
-      GameManager.Instance.CurrentPlayer.showGetCloser = true;
-    }
+//    if (distanceToPlayer < DISTANCE_THRESHOLD) {
+//      // Begin activity
+//      if (GameManager.Instance.CurrentPlayer.Progress.Contains(SceneToTrigger + "Lesson")) {
+//        if (GameManager.Instance.CurrentPlayer.Progress.Contains(SceneToTrigger + "Exercise")) {
+//          GameManager.Instance.CurrentPlayer.repeatExerciseOrActivity = SceneToTrigger;
+//        } else {
+//          GameManager.Instance.CurrentPlayer.startExerciseOrRepeatActivity = SceneToTrigger;
+//        }
+//      }
+//      else {
+//        GameManager.Instance.CurrentPlayer.startSearch = SceneToTrigger;
+//      }
+//    }
   }
 }
