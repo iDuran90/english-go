@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Mapbox.Unity.Map;
 using Mapbox.Utils;
 using UnityEngine;
@@ -31,11 +32,19 @@ public class SearchPointFactory : Singleton<SearchPointFactory>
 
   private void Update()
   {
-    foreach (var searchPoint in liveSearchPoints)
-    {
-      var position =
-        abstractMap.GeoToWorldPosition(new Vector2d(searchPoint.latitude, searchPoint.longitude));
-      searchPoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
+    if (GameManager.Instance.CurrentPlayer.currentMission == String.Empty) {
+      foreach (var searchPoint in liveSearchPoints)
+      {
+        searchPoint.gameObject.SetActive(true);
+        var position =
+          abstractMap.GeoToWorldPosition(new Vector2d(searchPoint.latitude, searchPoint.longitude));
+        searchPoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
+      } 
+    }
+    else {
+      foreach (var searchPoint in liveSearchPoints) {
+        searchPoint.gameObject.SetActive(false);
+      }
     }
   }
 

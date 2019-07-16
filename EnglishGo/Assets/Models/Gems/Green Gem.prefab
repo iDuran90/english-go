@@ -132,3 +132,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   challengeToTrigger: Office
+  missionId: Conjunctions
+  maxAttemps: 2

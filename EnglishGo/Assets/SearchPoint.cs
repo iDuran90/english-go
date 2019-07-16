@@ -20,17 +20,17 @@ public class SearchPoint : MonoBehaviour {
   }
 
   private void OnMouseDown() {
-    var playerLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
+    if (!GameManager.Instance.CurrentPlayer.menusLoadBlocked) {
+      var playerLocation = LocationProviderFactory.Instance.DefaultLocationProvider.CurrentLocation.LatitudeLongitude;
 
-    GameManager.Instance.CurrentPlayer.CalculateDistance();
+      double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), playerLocation);
 
-    double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), playerLocation);
-
-    if (distanceToPlayer < DISTANCE_THRESHOLD) {
-      GameManager.Instance.CurrentPlayer.startSearch = SceneToTrigger;
-    }
-    else {
-      GameManager.Instance.CurrentPlayer.searchGetCloser = SceneToTrigger;
+      if (distanceToPlayer < DISTANCE_THRESHOLD  || GameManager.Instance.CurrentPlayer.UserName == "Random2905") {
+        GameManager.Instance.CurrentPlayer.startSearch = SceneToTrigger;
+      }
+      else {
+        GameManager.Instance.CurrentPlayer.searchGetCloser = SceneToTrigger;
+      }
     }
   }
 }

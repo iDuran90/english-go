@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
 
@@ -37,6 +38,7 @@ public class OnboardMenuUIManager : MonoBehaviour {
     GameManager.Instance.CurrentPlayer.showOnBoardMenu = false;
     GameManager.Instance.CurrentPlayer.showTutorialMenu = true;
     GameManager.Instance.CurrentPlayer.muteSounds = false;
+    GameManager.Instance.CurrentPlayer.inventory = GetDefaultPlayerInventory();
 
     GameManager.Instance.CurrentPlayer.Save();
   }
@@ -51,5 +53,32 @@ public class OnboardMenuUIManager : MonoBehaviour {
     genderSelected = EnglishGoConstants.FEMALE_GENDER;
     maleBtnText.GetComponent<Graphic>().color = deactiveTxtColor;
     femaleBtnText.GetComponent<Graphic>().color = activeTxtColor;
+  }
+
+  private Inventory GetDefaultPlayerInventory() {
+    List<Parchment> adverbsParchments = new List<Parchment>();
+    adverbsParchments.Add(new Parchment("AdverbsBookParchment1"));
+    adverbsParchments.Add(new Parchment("AdverbsBookParchment2"));
+    adverbsParchments.Add(new Parchment("AdverbsBookParchment3"));
+    adverbsParchments.Add(new Parchment("AdverbsBookParchment4"));
+    
+    List<Parchment> conjunctionsParchments = new List<Parchment>();
+    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment1"));
+    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment2"));
+    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment3"));
+    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment4"));
+    
+    List<Parchment> questionsParchments = new List<Parchment>();
+    questionsParchments.Add(new Parchment("QuestionsBookParchment1"));
+    questionsParchments.Add(new Parchment("QuestionsBookParchment2"));
+    questionsParchments.Add(new Parchment("QuestionsBookParchment3"));
+    questionsParchments.Add(new Parchment("QuestionsBookParchment4"));
+    
+    List<Book> books = new List<Book>();
+    books.Add(new Book("Adverbs", adverbsParchments));
+    books.Add(new Book("Conjunctions", conjunctionsParchments));
+    books.Add(new Book("Questions", questionsParchments));
+    
+    return new Inventory(books);
   }
 }

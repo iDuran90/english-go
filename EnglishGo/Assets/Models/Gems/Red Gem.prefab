@@ -132,3 +132,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   challengeToTrigger: Library
+  missionId: Questions
+  maxAttemps: 2

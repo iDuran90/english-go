@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour {
   [SerializeField] private FeedbackMenuManager feedbackMenu;
 
   [SerializeField] private GameObject profileMenu;
-  
+
   [SerializeField] private OnboardMenuUIManager onBoardManager;
   [SerializeField] private TutorialMenuUIManager tutorialManager;
   [SerializeField] private GameObject map;
@@ -30,10 +30,8 @@ public class UIManager : MonoBehaviour {
   [SerializeField] private GameObject femalePlayer;
   [SerializeField] private GameObject maleAvatar;
   [SerializeField] private GameObject femaleAvatar;
-
   [SerializeField] private GameObject menuButton;
-  [SerializeField] private Button soundOn;
-  [SerializeField] private Button soundOff;
+
   [SerializeField] private AudioSource audio;
 
   public void updateLevel() {
@@ -42,32 +40,6 @@ public class UIManager : MonoBehaviour {
 
   public void updateXP() {
     xpText.text = GameManager.Instance.CurrentPlayer.Xp.ToString() + " / " + GameManager.Instance.CurrentPlayer.RequiredXp.ToString();
-  }
-
-  public void toggleMenu() {
-    if (audio.isPlaying) {
-      soundOff.gameObject.SetActive(true);
-      soundOn.gameObject.SetActive(false);
-    } else {
-      soundOff.gameObject.SetActive(false);
-      soundOn.gameObject.SetActive(true);
-    }
-
-    menu.SetActive(!menu.activeSelf);
-  }
-
-  public void ToogleSound() {
-    if (audio.isPlaying) {
-      audio.Stop();
-      GameManager.Instance.CurrentPlayer.muteSounds = true;
-      GameManager.Instance.CurrentPlayer.Save();
-    } else {
-      audio.Play();
-      GameManager.Instance.CurrentPlayer.muteSounds = false;
-      GameManager.Instance.CurrentPlayer.Save();
-    }
-
-    menu.SetActive(!menu.activeSelf);
   }
 
   private void Update() {
@@ -82,7 +54,6 @@ public class UIManager : MonoBehaviour {
       if (!map.activeSelf) {
         onBoardManager.menu.SetActive(false);
         map.SetActive(true);
-        menuButton.SetActive(true);
         profileMenu.SetActive(true);
         starsSectionManager.section.SetActive(true);
         nameText.text = GameManager.Instance.CurrentPlayer.UserName;  
@@ -97,14 +68,12 @@ public class UIManager : MonoBehaviour {
       }
 
       if (GameManager.Instance.CurrentPlayer.muteSounds) {
-        if (audio.isPlaying) {
-          audio.Stop();
-        }
-      } else {
-        if (!audio.isPlaying) {
-          audio.Play();
-        }
+        audio.Stop();
+      } else if (!audio.isPlaying) {
+        audio.Play();
       }
+      
+      menuButton.SetActive(!GameManager.Instance.CurrentPlayer.menusLoadBlocked);
     }
 
     if (GameManager.Instance.CurrentPlayer.displayLoading) {

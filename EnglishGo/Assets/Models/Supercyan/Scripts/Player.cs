@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
   [SerializeField] private List<string> progress = new List<string>();
 
   public bool displayLoading;
+
+  public string currentMission = String.Empty;
   
   public string startSearch = String.Empty;
   public string currentSearch = String.Empty;
@@ -26,12 +28,12 @@ public class Player : MonoBehaviour {
   public bool muteSounds;
   public bool showOnBoardMenu;
   public bool showTutorialMenu;
-  public int blueCoins = 0;
-  public int greenCoins = 0;
-  public int redCoins = 0;
-  public int blueGems = 0;
-  public int greenGems = 0;
-  public int redGems = 0;
+  public bool viewingLesson;
+  public bool menusLoadBlocked;
+  public int coins = 0;
+  public int gems = 0;
+
+  public Inventory inventory;
 
   public int currentChallengeGems;
   
@@ -101,47 +103,23 @@ public class Player : MonoBehaviour {
     }
   }
 
-  public void AddBlueCoins(string itemFound, int coinsToAdd = 25) {
+  public void AddCoins(string itemFound, int coinsToAdd = 25) {
     if (!currentSearchFoundItems.Contains(itemFound)) {
       currentSearchFoundItems.Add(itemFound);
-      blueCoins += coinsToAdd;
+      coins += coinsToAdd;
       
       Save();
     }
   }
   
-  public void AddBlueGems(int gemsToAdd = 25) {
-    blueGems += gemsToAdd;
+  public void AddGems(int gemsToAdd = 25) {
+    gems += gemsToAdd;
       
     Save();
   }
   
-  public void AddGreenGems(int gemsToAdd = 25) {
-    greenGems += gemsToAdd;
-      
-    Save();
-  }
-  
-  public void AddRedGems(int gemsToAdd = 25) {
-    redGems += gemsToAdd;
-      
-    Save();
-  }
-  
-  public void ReduceBlueCoins(int coinsToReduce = 25) {
-    blueCoins -= coinsToReduce;
-      
-    Save();
-  }
-  
-  public void ReduceGreenCoins(int coinsToReduce = 25) {
-    greenCoins -= coinsToReduce;
-      
-    Save();
-  }
-  
-  public void ReduceRedCoins(int coinsToReduce = 25) {
-    redCoins -= coinsToReduce;
+  public void ReduceCoins(int coinsToReduce = 25) {
+    coins -= coinsToReduce;
       
     Save();
   }
@@ -151,14 +129,11 @@ public class Player : MonoBehaviour {
     requiredXp = levelBase * level;
   }
 
-  public void CalculateDistance() {
-    Debug.Log(this.transform.localPosition);
-  }
-
   public void Save() {
     BinaryFormatter bf = new BinaryFormatter();
     FileStream file = File.Create(path);
     PlayerData data = new PlayerData(this);
+
     bf.Serialize(file, data);
     file.Close();
   }
@@ -180,12 +155,11 @@ public class Player : MonoBehaviour {
       userGender = data.UserGender;
       muteSounds = data.MuteSounds;
       progress = data.Progress;
-      blueCoins = data.BlueCoins;
-      greenCoins = data.GreenCoins;
-      redCoins = data.RedCoins;
-      blueGems = data.BlueGems;
-      greenGems = data.GreenGems;
-      redGems = data.RedGems;
+      coins = data.BlueCoins;
+      gems = data.BlueGems;
+      currentMission = data.CurrentMission;
+
+      inventory = new Inventory(data.Inventory);
     } else {
       showOnBoardMenu = true;
       InitLevelData();

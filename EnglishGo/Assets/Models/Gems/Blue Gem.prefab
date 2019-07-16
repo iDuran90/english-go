@@ -132,3 +132,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   challengeToTrigger: Animals
+  missionId: Animals
+  maxAttemps: 2

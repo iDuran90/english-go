@@ -13,11 +13,6 @@ public class StartChallengeMenuUIManager : MonoBehaviour {
   public Button startChallengeBtn; 
   
   public Sprite blueGemSprite;
-  public Sprite greenGemSprite;
-  public Sprite redGemSprite;
-  public Sprite blueCoinSprite;
-  public Sprite greenCoinSprite;
-  public Sprite redCoinSprite;
 
   public Image gemImg;
   public Image coinImg;
@@ -34,13 +29,7 @@ public class StartChallengeMenuUIManager : MonoBehaviour {
       .Find(x => x.id == GameManager.Instance.CurrentPlayer.currentChallenge);
 
     if (definition.rewardGemsColor == EnglishGoConstants.COLOR_BLUE) {
-      GameManager.Instance.CurrentPlayer.ReduceBlueCoins(definition.coinsCost);
-    }
-    else if (definition.rewardGemsColor == EnglishGoConstants.COLOR_GREEN) {
-      GameManager.Instance.CurrentPlayer.ReduceGreenCoins(definition.coinsCost);
-    }
-    else if (definition.rewardGemsColor == EnglishGoConstants.COLOR_RED) {
-      GameManager.Instance.CurrentPlayer.ReduceRedCoins(definition.coinsCost);
+      GameManager.Instance.CurrentPlayer.ReduceCoins(definition.coinsCost);
     }
     
     menu.SetActive(false);
@@ -63,18 +52,7 @@ public class StartChallengeMenuUIManager : MonoBehaviour {
 
       if (definition.rewardGemsColor == EnglishGoConstants.COLOR_BLUE) {
         gemImg.sprite = blueGemSprite;
-        coinImg.sprite = blueCoinSprite;
-        canStartChallenge = GameManager.Instance.CurrentPlayer.blueCoins >= definition.coinsCost;
-      }
-      else if (definition.rewardGemsColor == EnglishGoConstants.COLOR_GREEN) {
-        gemImg.sprite = greenGemSprite;
-        coinImg.sprite = greenCoinSprite;
-        canStartChallenge = GameManager.Instance.CurrentPlayer.greenCoins >= definition.coinsCost;
-      }
-      else if (definition.rewardGemsColor == EnglishGoConstants.COLOR_RED) {
-        gemImg.sprite = redGemSprite;
-        coinImg.sprite = redCoinSprite;
-        canStartChallenge = GameManager.Instance.CurrentPlayer.redCoins >= definition.coinsCost;
+        canStartChallenge = GameManager.Instance.CurrentPlayer.coins >= definition.coinsCost;
       }
 
       gemsReward.text = definition.maxRewardGems.ToString();

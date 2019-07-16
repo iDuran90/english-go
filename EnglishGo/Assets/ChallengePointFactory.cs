@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Mapbox.Unity.Map;
 using Mapbox.Utils;
 using UnityEngine;
@@ -31,11 +32,26 @@ public class ChallengePointFactory : Singleton<ChallengePointFactory>
 
   private void Update()
   {
-    foreach (var challengePoint in liveChallengePoints)
-    {
-      var position =
-        abstractMap.GeoToWorldPosition(new Vector2d(challengePoint.latitude, challengePoint.longitude));
-      challengePoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
+    // if current mission is _id_ then load the challenge points for that mission
+
+    if (GameManager.Instance.CurrentPlayer.currentMission != String.Empty) {
+      foreach (var challengePoint in liveChallengePoints) {
+        Debug.Log(GameManager.Instance.CurrentPlayer.currentMission);
+        if (challengePoint.MissionId == GameManager.Instance.CurrentPlayer.currentMission && challengePoint.MaxAttemps > challengePoint.CurrentAttemps) {
+          challengePoint.gameObject.SetActive(true);
+          var position =
+            abstractMap.GeoToWorldPosition(new Vector2d(challengePoint.latitude, challengePoint.longitude));
+          challengePoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
+        }
+        else {
+          challengePoint.gameObject.SetActive(false);
+        }
+      }
+    }
+    else {
+      foreach (var challengePoint in liveChallengePoints) {
+        challengePoint.gameObject.SetActive(false);
+      }
     }
   }
 
