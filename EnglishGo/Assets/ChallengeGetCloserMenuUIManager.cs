@@ -5,31 +5,29 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChallengeGetCloserMenuUIManager : MonoBehaviour {
-	public GameObject menu;
-
-	public Sprite blueGemSprite;
-
-	public Image gemImg;
-	public Image coinImg;
-
 	public Text gemsReward;
 	public Text coinsCost;
+	public Text attemptsTxt;
 
 	public void OnAcceptBtnClicked() {
 		GameManager.Instance.CurrentPlayer.challengeGetCloser = String.Empty;
 
-		menu.SetActive(false);
+		gameObject.SetActive(false);
 	}
 	
-	private void Update() {
-		if (GameManager.Instance.CurrentPlayer.challengeGetCloser != String.Empty) {
-			var definition = EnglishGoConstants.GetChallengePointDefinitions()
-				.Find(x => x.id == GameManager.Instance.CurrentPlayer.challengeGetCloser);
-			
-			gemImg.sprite = blueGemSprite;
+	private void OnEnable() {
+		GameManager.Instance.CurrentPlayer.menusLoadBlocked = true;
 
-			gemsReward.text = definition.maxRewardGems.ToString();
-			coinsCost.text = definition.coinsCost.ToString();
-		}
+		var definition = EnglishGoConstants.GetChallengePointDefinitions()
+				.Find(x => x.id == GameManager.Instance.CurrentPlayer.challengeGetCloser);
+
+		gemsReward.text = definition.maxReward.ToString();
+		coinsCost.text = definition.coinsCost.ToString();
+		attemptsTxt.text = GameManager.Instance.CurrentPlayer.currentMissionChallengesAttempts + " / " +
+		                   definition.maxAttemps;
+	}
+
+	private void OnDisable() {
+		GameManager.Instance.CurrentPlayer.menusLoadBlocked = false;
 	}
 }

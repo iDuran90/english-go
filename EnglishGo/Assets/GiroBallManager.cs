@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,14 +17,30 @@ public class GiroBallManager : MonoBehaviour {
 	
   private float dirX, dirY;
   private bool gameEnded;
+  private Vector3 ballInitialPosition;
+  private Vector3 ballInitialScale;
 
   public static bool winner;
   public static bool losser;
 
-  private void Start() {
+  private void OnEnable() {
     anim.SetBool ("BallDead", false);
+    ballInitialPosition = rigidBody.gameObject.transform.localPosition;
+    ballInitialScale = rigidBody.gameObject.transform.localScale;
   }
-  
+
+  private void OnDisable() {
+    gameEnded = false;
+    winner = false;
+    losser = false;
+    successTxt.gameObject.SetActive(false);
+    failureTxt.gameObject.SetActive(false);
+    
+    rigidBody.gameObject.SetActive(true);
+    rigidBody.gameObject.transform.localPosition = ballInitialPosition;
+    rigidBody.gameObject.transform.localScale = ballInitialScale;
+  }
+
   private void Update () {
     if (!gameEnded) {
       dirX = Input.acceleration.x * moveSpeedModifier;

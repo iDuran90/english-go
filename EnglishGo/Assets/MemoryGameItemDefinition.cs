@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MemoryGameItemDefinition : MonoBehaviour {
-  public Sprite sprite;
+  public string complement;
   public string word;
 }

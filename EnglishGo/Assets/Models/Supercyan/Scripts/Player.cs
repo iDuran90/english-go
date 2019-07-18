@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
   public bool displayLoading;
 
   public string currentMission = String.Empty;
+  public int currentMissionChallengesAttempts = 0;
   
   public string startSearch = String.Empty;
   public string currentSearch = String.Empty;
@@ -36,8 +37,7 @@ public class Player : MonoBehaviour {
   public Inventory inventory;
 
   public int currentChallengeGems;
-  
-  public List<string> currentSearchFoundItems = new List<string>();
+  public int currentChallengesAccumulatedGems;
 
   private string userName;
 
@@ -103,13 +103,10 @@ public class Player : MonoBehaviour {
     }
   }
 
-  public void AddCoins(string itemFound, int coinsToAdd = 25) {
-    if (!currentSearchFoundItems.Contains(itemFound)) {
-      currentSearchFoundItems.Add(itemFound);
-      coins += coinsToAdd;
+  public void AddCoins(int coinsToAdd) {
+    coins += coinsToAdd;
       
-      Save();
-    }
+    Save();
   }
   
   public void AddGems(int gemsToAdd = 25) {
@@ -158,6 +155,8 @@ public class Player : MonoBehaviour {
       coins = data.BlueCoins;
       gems = data.BlueGems;
       currentMission = data.CurrentMission;
+      currentMissionChallengesAttempts = data.CurrentMissionChallengesAttempts;
+      currentChallengesAccumulatedGems = data.CurrentChallengesAccumulatedGems;
 
       inventory = new Inventory(data.Inventory);
     } else {

@@ -10,19 +10,6 @@ public class ChallengePoint : MonoBehaviour {
     get { return missionId; }
   }
 
-  public int CurrentAttemps {
-    get { return currentAttemps; }
-  }
-
-  [SerializeField] private int maxAttemps;
-
-  public int MaxAttemps {
-    get { return maxAttemps; }
-  }
-
-
-  private int currentAttemps = 0;
-
   private const double DISTANCE_THRESHOLD = 0.009; // 0.0002
 
   public double latitude { get; set; }

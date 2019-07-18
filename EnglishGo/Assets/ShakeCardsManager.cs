@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,14 +7,22 @@ using UnityEngine.UI;
 using Random = System.Random;
 
 public class ShakeCardsManager : MonoBehaviour {
-	public Image imageA;
-	public Image imageB;
+	public ChallengeDefinition challengeDef;
 
-	public Sprite[] optionsA;
-	public Sprite[] optionsB;
+	public Text txtA;
+	public Text txtB;
 
-	public Text debugTxt;
+	public string[] optionsA;
+	public string[] optionsB;
 
+	public Button validateBtn;
+
+	public string answerOptionA;
+	public string answerOptionB;
+	
+	public Text successTxt;
+	public Text failureTxt;
+	
 	private bool gameEnded;
 	private bool isShaking;
 	
@@ -27,12 +36,44 @@ public class ShakeCardsManager : MonoBehaviour {
 	private List<Combination> displayedCombinations = new List<Combination>();
 	private Combination currentCombination;
 	
-	void Start () {
+	void OnEnable () {
 		lowPassFilterFactor = accelerometerUpdateInterval / lowPassKernelWidthInSeconds;
 		shakeDetectionThreshold *= shakeDetectionThreshold;
 		lowPassValue = Input.acceleration;
 	}
+
+	private void OnDisable() {
+		gameEnded = false;
+		
+		successTxt.gameObject.SetActive(false);
+		failureTxt.gameObject.SetActive(false);
+		
+		validateBtn.interactable = false;
+		displayedCombinations.Clear();
+		
+		txtA.text = String.Empty;
+		txtB.text = String.Empty;
+		txtA.gameObject.SetActive(false);
+		txtB.gameObject.SetActive(false);
+	}
+
+	public void OnValidateBtnClicked() {
+		gameEnded = true;
+		
+		if (txtA.text == answerOptionA && txtB.text == answerOptionB) {
+			successTxt.gameObject.SetActive(true);
+		} else {
+			failureTxt.gameObject.SetActive(true);
+		}
+
+		StartCoroutine(WaitToEndGame());
+	}
 	
+	private IEnumerator WaitToEndGame() {
+		yield return new WaitForSeconds(1f);
+    
+		challengeDef.LoadNextGame(successTxt.gameObject.activeSelf ? 25 : 0);
+	}
 	
 	void Update () {
 		if (!gameEnded && !isShaking) {
@@ -42,11 +83,12 @@ public class ShakeCardsManager : MonoBehaviour {
 
 			if (deltaAcceleration.sqrMagnitude >= shakeDetectionThreshold)
 			{
-//				debugTxt.text = "Shake event detected at time " + Time.time + "\n" + debugTxt.text;
 				isShaking = true;
 				StartCoroutine(ShakeCards());
 			}
 		}
+
+		validateBtn.interactable = displayedCombinations.Count != 0 && !isShaking;
 		
 		#if UNITY_EDITOR 
 			if (Input.GetKeyDown (KeyCode.Space)) {
@@ -61,9 +103,9 @@ public class ShakeCardsManager : MonoBehaviour {
 			displayedCombinations.Clear();	
 		}
 
-		if (!imageA.gameObject.activeSelf) {
-			imageA.gameObject.SetActive(true);
-			imageB.gameObject.SetActive(true);
+		if (!txtA.gameObject.activeSelf) {
+			txtA.gameObject.SetActive(true);
+			txtB.gameObject.SetActive(true);
 		}
 
 		for (int i = 0; i < 20; i++) {
@@ -71,8 +113,8 @@ public class ShakeCardsManager : MonoBehaviour {
 			int spriteAIdx = random.Next(0, optionsA.Length);
 			int spriteBIdx = random.Next(0, optionsB.Length);
 
-			imageA.sprite = optionsA[spriteAIdx];
-			imageB.sprite = optionsB[spriteBIdx];
+			txtA.text = optionsA[spriteAIdx];
+			txtB.text = optionsB[spriteBIdx];
 			
 			currentCombination = new Combination(spriteAIdx, spriteBIdx);
 			
@@ -86,8 +128,8 @@ public class ShakeCardsManager : MonoBehaviour {
 			int spriteAIdx = random.Next(0, optionsA.Length);
 			int spriteBIdx = random.Next(0, optionsB.Length);
 
-			imageA.sprite = optionsA[spriteAIdx];
-			imageB.sprite = optionsB[spriteBIdx];
+			txtA.text = optionsA[spriteAIdx];
+			txtB.text = optionsB[spriteBIdx];
 			
 			currentCombination = new Combination(spriteAIdx, spriteBIdx);
 			

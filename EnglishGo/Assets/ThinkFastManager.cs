@@ -10,16 +10,25 @@ public class ThinkFastManager : MonoBehaviour {
   public Button goBtn;
   public Text successTxt;
   public Text failureTxt;
-  public Sprite imgToGuess;
-  public Image imgContainer;
+  public Text txtToGuess;
   public Animator anim;
   public Image progressBar;
-  public string wordToGuess;
+  public string correctAnswer;
 
   private bool gameEnded;
 
-  private void Start() {
-    imgContainer.sprite = imgToGuess;
+  private void OnDisable() {
+    gameEnded = false;
+    
+    successTxt.gameObject.SetActive(false);
+    failureTxt.gameObject.SetActive(false);
+    
+    goBtn.gameObject.SetActive(true);
+    buttons.SetActive(false);
+    txtToGuess.gameObject.SetActive(false);
+
+    anim.enabled = true;
+    progressBar.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 75);
   }
 
   private void Update() {
@@ -37,13 +46,13 @@ public class ThinkFastManager : MonoBehaviour {
     goBtn.gameObject.SetActive(false);
     
     buttons.SetActive(true);
-    imgContainer.gameObject.SetActive(true);
+    txtToGuess.gameObject.SetActive(true);
     
     anim.SetBool("Progressing", true);
   }
   
   public void OnBtnClicked(Button btn) {
-    if (btn.GetComponentInChildren<Text>().text == wordToGuess) {
+    if (btn.GetComponentInChildren<Text>().text == correctAnswer) {
       successTxt.gameObject.SetActive(true);
     } else {
       failureTxt.gameObject.SetActive(true);
@@ -59,9 +68,5 @@ public class ThinkFastManager : MonoBehaviour {
     yield return new WaitForSeconds(1f);
     
     challengeDef.LoadNextGame(successTxt.gameObject.activeSelf ? 25 : 0);
-  }
-
-  private void OnDisable() {
-    Debug.Log("Se acabó");
   }
 }

@@ -36,12 +36,19 @@ public class ChallengePointFactory : Singleton<ChallengePointFactory>
 
     if (GameManager.Instance.CurrentPlayer.currentMission != String.Empty) {
       foreach (var challengePoint in liveChallengePoints) {
-        Debug.Log(GameManager.Instance.CurrentPlayer.currentMission);
-        if (challengePoint.MissionId == GameManager.Instance.CurrentPlayer.currentMission && challengePoint.MaxAttemps > challengePoint.CurrentAttemps) {
-          challengePoint.gameObject.SetActive(true);
-          var position =
-            abstractMap.GeoToWorldPosition(new Vector2d(challengePoint.latitude, challengePoint.longitude));
-          challengePoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
+        if (challengePoint.MissionId == GameManager.Instance.CurrentPlayer.currentMission) {
+          var definition = EnglishGoConstants.GetChallengePointDefinitions()
+            .Find(x => x.id == GameManager.Instance.CurrentPlayer.currentMission);
+
+          if (definition.maxAttemps > GameManager.Instance.CurrentPlayer.currentMissionChallengesAttempts) {
+            challengePoint.gameObject.SetActive(true);
+            var position =
+              abstractMap.GeoToWorldPosition(new Vector2d(challengePoint.latitude, challengePoint.longitude));
+            challengePoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z); 
+          }
+          else {
+            challengePoint.gameObject.SetActive(false);
+          }
         }
         else {
           challengePoint.gameObject.SetActive(false);

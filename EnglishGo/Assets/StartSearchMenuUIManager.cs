@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartSearchMenuUIManager : MonoBehaviour {
-  public GameObject menu;
+  private void OnEnable() {
+    GameManager.Instance.CurrentPlayer.menusLoadBlocked = true;
+  }
 
   public void OnStartSearchBtnClicked() {
     GameManager.Instance.CurrentPlayer.displayLoading = true;

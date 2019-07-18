@@ -13,6 +13,7 @@ public class ChallengeDefinition : MonoBehaviour {
   private bool soundMutedByMe;
 
   public void StartChallenge() {
+    currentGameIndex = 0;
     if (!GameManager.Instance.CurrentPlayer.muteSounds) {
       soundMutedByMe = true;
       GameManager.Instance.CurrentPlayer.muteSounds = true;
@@ -35,6 +36,8 @@ public class ChallengeDefinition : MonoBehaviour {
       GameManager.Instance.CurrentPlayer.currentChallengeGems = currentGems;
       GameManager.Instance.CurrentPlayer.afterChallenge = GameManager.Instance.CurrentPlayer.currentChallenge; 
       GameManager.Instance.CurrentPlayer.currentChallenge = String.Empty;
+      GameManager.Instance.CurrentPlayer.menusLoadBlocked = false;
+      currentGems = 0;
     } else {
       miniGames[currentGameIndex - 1].SetActive(false);
       miniGames[currentGameIndex].SetActive(true);

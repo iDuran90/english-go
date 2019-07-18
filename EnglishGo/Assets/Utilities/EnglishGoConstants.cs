@@ -21,9 +21,9 @@ public static class EnglishGoConstants {
   public static List<SearchPointDefinition> GetSearchPointDefinitions() {
     var searchPointDefinitions = new List<SearchPointDefinition>();
 
-    searchPointDefinitions.Add(new SearchPointDefinition("Library", 6.261578, -75.577539, COLOR_RED, 100));
-    searchPointDefinitions.Add(new SearchPointDefinition("Animals", 6.263482, -75.576399, COLOR_BLUE, 100));
-    searchPointDefinitions.Add(new SearchPointDefinition("Office", 6.261251, -75.576290, COLOR_GREEN, 100));
+    searchPointDefinitions.Add(new SearchPointDefinition("Conjunctions", 6.261578, -75.577539, 200));
+    searchPointDefinitions.Add(new SearchPointDefinition("Adverbs", 6.263482, -75.576399, 200));
+    searchPointDefinitions.Add(new SearchPointDefinition("Questions", 6.261251, -75.576290, 200));
 
     return searchPointDefinitions;
   }
@@ -31,9 +31,9 @@ public static class EnglishGoConstants {
   public static List<ChallengePointDefinition> GetChallengePointDefinitions() {
     var challengePointDefinitions = new List<ChallengePointDefinition>();
 
-    challengePointDefinitions.Add(new ChallengePointDefinition("Library", 6.262078, -75.577539, COLOR_RED, 100, 100));
-    challengePointDefinitions.Add(new ChallengePointDefinition("Animals", 6.264082, -75.576399, COLOR_BLUE, 100, 100));
-    challengePointDefinitions.Add(new ChallengePointDefinition("Office", 6.261651, -75.575890, COLOR_GREEN, 100, 100));
+    challengePointDefinitions.Add(new ChallengePointDefinition("Conjunctions", 6.262078, -75.577539, 100, 50, 30));
+    challengePointDefinitions.Add(new ChallengePointDefinition("Adverbs", 6.264082, -75.576399, 100, 50, 30));
+    challengePointDefinitions.Add(new ChallengePointDefinition("Questions", 6.261651, -75.575890, 100, 50, 4));
 
     return challengePointDefinitions;
   }
@@ -61,15 +61,13 @@ public struct SearchPointDefinition
 {
   public string id;
   public double lat, lon;
-  public string rewardCoinsColor;
-  public int maxRewardCoins;
+  public int reward;
 
-  public SearchPointDefinition(string id, double lat, double lon, string rewardCoinsColor, int maxRewardCoins) {
+  public SearchPointDefinition(string id, double lat, double lon, int reward) {
     this.id = id;
     this.lat = lat;
     this.lon = lon;
-    this.rewardCoinsColor = rewardCoinsColor;
-    this.maxRewardCoins = maxRewardCoins;
+    this.reward = reward;
   }
 }
 
@@ -77,16 +75,16 @@ public struct ChallengePointDefinition
 {
   public string id;
   public double lat, lon;
-  public string rewardGemsColor;
-  public int maxRewardGems;
+  public int maxReward;
   public int coinsCost;
+  public int maxAttemps;
 
-  public ChallengePointDefinition(string id, double lat, double lon, string rewardGemsColor, int maxRewardGems, int coinsCost) {
+  public ChallengePointDefinition(string id, double lat, double lon, int maxReward, int coinsCost, int maxAttemps) {
     this.id = id;
     this.lat = lat;
     this.lon = lon;
-    this.rewardGemsColor = rewardGemsColor;
-    this.maxRewardGems = maxRewardGems;
+    this.maxReward = maxReward;
     this.coinsCost = coinsCost;
+    this.maxAttemps = maxAttemps;
   }
 }

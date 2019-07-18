@@ -20,6 +20,16 @@ public class PlayerData {
   private int gems;
   private InventoryData inventory;
   private string currentMission;
+  private int currentMissionChallengesAttempts;
+  private int currentChallengesAccumulatedGems;
+
+  public int CurrentChallengesAccumulatedGems {
+    get { return currentChallengesAccumulatedGems; }
+  }
+
+  public int CurrentMissionChallengesAttempts {
+    get { return currentMissionChallengesAttempts; }
+  }
 
   public string CurrentMission {
     get { return currentMission; }
@@ -57,6 +67,8 @@ public class PlayerData {
     coins = player.coins;
     gems = player.gems;
     currentMission = player.currentMission;
+    currentMissionChallengesAttempts = player.currentMissionChallengesAttempts;
+    currentChallengesAccumulatedGems = player.currentChallengesAccumulatedGems;
 
     inventory = new InventoryData(player.inventory);
   }

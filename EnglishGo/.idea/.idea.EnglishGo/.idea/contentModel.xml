@@ -942,7 +942,7 @@
         </e>
       </e>
       <e p="Assets\Scenes" t="Include">
-        <e p="Animals" t="Include">
+        <e p="Adverbs" t="Include">
           <e p="AnimalsTestUIManager.cs" t="Include" />
           <e p="GyroController.cs" t="Include" />
         </e>

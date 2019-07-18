@@ -79,43 +79,31 @@ public class UIManager : MonoBehaviour {
     if (GameManager.Instance.CurrentPlayer.displayLoading) {
       loadingCanvas.SetActive(true);
     }
+
+    if (!GameManager.Instance.CurrentPlayer.menusLoadBlocked) {
+      if (GameManager.Instance.CurrentPlayer.startSearch != String.Empty) {
+        startSearchManager.gameObject.SetActive(true);
+      }
+
+      if (GameManager.Instance.CurrentPlayer.afterSearch != String.Empty) {
+        afterSearchManager.gameObject.SetActive(true);
+      }
+
+      if (GameManager.Instance.CurrentPlayer.startChallenge != String.Empty) {
+        startChallengeManager.gameObject.SetActive(true);
+      }
+
+      if (GameManager.Instance.CurrentPlayer.afterChallenge != String.Empty) {
+        afterChallengeManager.gameObject.SetActive(true);
+      }
     
-    if (GameManager.Instance.CurrentPlayer.startSearch != String.Empty && !IsSomeMenuOpen()) {
-      startSearchManager.menu.SetActive(true);
-    }
-
-    if (GameManager.Instance.CurrentPlayer.afterSearch != String.Empty && !IsSomeMenuOpen()) {
-      afterSearchManager.menu.SetActive(true);
-    }
-
-    if (GameManager.Instance.CurrentPlayer.startChallenge != String.Empty && !IsSomeMenuOpen()) {
-      startChallengeManager.menu.SetActive(true);
-    }
-
-    if (GameManager.Instance.CurrentPlayer.afterChallenge != String.Empty && !IsSomeMenuOpen()) {
-      afterChallengeManager.menu.SetActive(true);
-    }
+      if (GameManager.Instance.CurrentPlayer.searchGetCloser != String.Empty) {
+        searchGetCloserManager.gameObject.SetActive(true);
+      }
     
-    if (GameManager.Instance.CurrentPlayer.searchGetCloser != String.Empty && !IsSomeMenuOpen()) {
-      searchGetCloserManager.menu.SetActive(true);
+      if (GameManager.Instance.CurrentPlayer.challengeGetCloser != String.Empty) {
+        challengeGetCloserManager.gameObject.SetActive(true);
+      }
     }
-    
-    if (GameManager.Instance.CurrentPlayer.challengeGetCloser != String.Empty && !IsSomeMenuOpen()) {
-      challengeGetCloserManager.menu.SetActive(true);
-    }
-  }
-
-  private bool IsSomeMenuOpen() {
-    return
-      menu.activeSelf
-      || startSearchManager.menu.activeSelf
-      || searchGetCloserManager.menu.activeSelf
-      || challengeGetCloserManager.menu.activeSelf
-      || onBoardManager.menu.activeSelf
-      || afterSearchManager.menu.activeSelf
-      || startChallengeManager.menu.activeSelf
-      || afterChallengeManager.menu.activeSelf
-      || feedbackMenu.menu.activeSelf
-      || GameManager.Instance.CurrentPlayer.currentChallenge != String.Empty;
   }
 }

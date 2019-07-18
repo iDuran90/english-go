@@ -4,21 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StartChallengeMenuUIManager : MonoBehaviour {
-  public GameObject menu;
   public List<ChallengeDefinition> challenges;
-
-  public Text challengeEnabledTxt;
-  public Text challengeDisabledTxt;
-
-  public Button startChallengeBtn; 
   
-  public Sprite blueGemSprite;
-
-  public Image gemImg;
-  public Image coinImg;
-
   public Text gemsReward;
   public Text coinsCost;
+  public Text attemptsTxt;
 
   public void OnAcceptBtnClicked() {
     var challengeDefinition = challenges.Find(x => x.id == GameManager.Instance.CurrentPlayer.startChallenge);
@@ -27,54 +17,24 @@ public class StartChallengeMenuUIManager : MonoBehaviour {
     
     var definition = EnglishGoConstants.GetChallengePointDefinitions()
       .Find(x => x.id == GameManager.Instance.CurrentPlayer.currentChallenge);
-
-    if (definition.rewardGemsColor == EnglishGoConstants.COLOR_BLUE) {
-      GameManager.Instance.CurrentPlayer.ReduceCoins(definition.coinsCost);
-    }
     
-    menu.SetActive(false);
+    GameManager.Instance.CurrentPlayer.ReduceCoins(definition.coinsCost);
+
+    gameObject.SetActive(false);
 
     challengeDefinition.StartChallenge();
   }
 
-  public void OnExitBtnClicked() {
-    GameManager.Instance.CurrentPlayer.startChallenge = String.Empty;
+  private void OnEnable() {
+    GameManager.Instance.CurrentPlayer.menusLoadBlocked = true;
+    GameManager.Instance.CurrentPlayer.currentMissionChallengesAttempts += 1;
 
-    menu.SetActive(false);
-  }
-  
-  private void Update() {
-    var canStartChallenge = false;
+    var definition = EnglishGoConstants.GetChallengePointDefinitions()
+      .Find(x => x.id == GameManager.Instance.CurrentPlayer.startChallenge);
 
-    if (GameManager.Instance.CurrentPlayer.startChallenge != String.Empty) {
-      var definition = EnglishGoConstants.GetChallengePointDefinitions()
-        .Find(x => x.id == GameManager.Instance.CurrentPlayer.startChallenge);
-
-      if (definition.rewardGemsColor == EnglishGoConstants.COLOR_BLUE) {
-        gemImg.sprite = blueGemSprite;
-        canStartChallenge = GameManager.Instance.CurrentPlayer.coins >= definition.coinsCost;
-      }
-
-      gemsReward.text = definition.maxRewardGems.ToString();
-      coinsCost.text = definition.coinsCost.ToString();
-    } else {
-      menu.SetActive(false);
-    }
-
-    #if UNITY_EDITOR
-    canStartChallenge = true;
-    #endif
-    
-    if (canStartChallenge) {
-      challengeEnabledTxt.gameObject.SetActive(true);
-      startChallengeBtn.gameObject.SetActive(true);
-      
-      challengeDisabledTxt.gameObject.SetActive(false);
-    } else {
-      challengeEnabledTxt.gameObject.SetActive(false);
-      startChallengeBtn.gameObject.SetActive(false);
-      
-      challengeDisabledTxt.gameObject.SetActive(true);
-    }
+    gemsReward.text = definition.maxReward.ToString();
+    coinsCost.text = definition.coinsCost.ToString();
+    attemptsTxt.text = GameManager.Instance.CurrentPlayer.currentMissionChallengesAttempts + " / " +
+                       definition.maxAttemps;
   }
 }

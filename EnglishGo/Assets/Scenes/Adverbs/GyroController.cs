@@ -8,7 +8,6 @@ public class GyroController : MonoBehaviour {
   private Gyroscope gyro;
   private GameObject cameraContainer;
   public Quaternion rot;
-  public Text text;
 
   private void Start() {
     cameraContainer = new GameObject("Camera Container");
@@ -37,11 +36,6 @@ public class GyroController : MonoBehaviour {
   IEnumerator DoCheck()
   {
     for (; ; ) {
-      if (gyroEnabled) {
-        text.text = gyro.attitude.ToString() + "\n" + transform.localRotation.ToString();
-        //text.text = transform.localRotation.ToString();
-      }
-
       yield return new WaitForSeconds(1f);
     }
   }
