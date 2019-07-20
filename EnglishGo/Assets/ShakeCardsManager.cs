@@ -36,7 +36,7 @@ public class ShakeCardsManager : MonoBehaviour {
 	private List<Combination> displayedCombinations = new List<Combination>();
 	private Combination currentCombination;
 	
-	void OnEnable () {
+	private void Start() {
 		lowPassFilterFactor = accelerometerUpdateInterval / lowPassKernelWidthInSeconds;
 		shakeDetectionThreshold *= shakeDetectionThreshold;
 		lowPassValue = Input.acceleration;

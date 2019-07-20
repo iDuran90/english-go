@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
-  [SerializeField] private Text xpText;
   [SerializeField] private Text levelText;
   [SerializeField] private Text nameText;
   [SerializeField] private GameObject menu;
@@ -33,18 +33,14 @@ public class UIManager : MonoBehaviour {
   [SerializeField] private GameObject menuButton;
 
   [SerializeField] private AudioSource audio;
+  public Animator anim;
 
   public void updateLevel() {
-    levelText.text = "Nivel " + GameManager.Instance.CurrentPlayer.Level.ToString();
-  }
-
-  public void updateXP() {
-    xpText.text = GameManager.Instance.CurrentPlayer.Xp.ToString() + " / " + GameManager.Instance.CurrentPlayer.RequiredXp.ToString();
+    levelText.text = GameManager.Instance.CurrentPlayer.level;
   }
 
   private void Update() {
     updateLevel();
-    updateXP();
 
     if (GameManager.Instance.CurrentPlayer.showOnBoardMenu) {
       onBoardManager.menu.SetActive(true);
@@ -105,5 +101,19 @@ public class UIManager : MonoBehaviour {
         challengeGetCloserManager.gameObject.SetActive(true);
       }
     }
+    
+#if UNITY_EDITOR 
+    if (Input.GetKeyDown (KeyCode.Space)) {
+      anim.enabled = true;
+      anim.SetBool ("Leveling", true);
+      StartCoroutine(WaitToEnd());
+    }
+#endif
+  }
+  
+  private IEnumerator WaitToEnd() {
+    yield return new WaitForSeconds(3f);
+    
+    anim.enabled = false;
   }
 }

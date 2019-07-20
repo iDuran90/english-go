@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryUIManager : MonoBehaviour {
 	public MenuUIManager menuUIMngr;
+	public GameObject booksObj;
 	
 	private Color collectedItemColor =  new Color(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f);
 
@@ -31,5 +32,10 @@ public class InventoryUIManager : MonoBehaviour {
 				btnImg.color = collectedItemColor;
 			}
 		}
+	}
+
+	public void OnInventoryItemClicked(InventoryItem item) {
+		booksObj.SetActive(true);
+		item.lessonUI.gameObject.SetActive(true);
 	}
 }

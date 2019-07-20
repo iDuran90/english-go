@@ -11,8 +11,8 @@ public class OnboardMenuUIManager : MonoBehaviour {
   [SerializeField] private Text femaleBtnText;
   
   private string genderSelected;
-  private Color activeTxtColor = new Color(192.0f/255.0f, 24.0f/255.0f, 44.0f/255.0f, 255.0f/255.0f);
-  private Color deactiveTxtColor = new Color(80.0f/255.0f, 80.0f/255.0f, 80.0f/255.0f, 150.0f/255.0f);
+  private Color activeTxtColor = new Color(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f);
+  private Color deactiveTxtColor = new Color(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 150.0f/255.0f);
 
   private void Start() {
     nameInput.characterLimit = 10;
@@ -39,6 +39,7 @@ public class OnboardMenuUIManager : MonoBehaviour {
     GameManager.Instance.CurrentPlayer.showTutorialMenu = true;
     GameManager.Instance.CurrentPlayer.muteSounds = false;
     GameManager.Instance.CurrentPlayer.inventory = GetDefaultPlayerInventory();
+    GameManager.Instance.CurrentPlayer.level = "Caminante";
 
     GameManager.Instance.CurrentPlayer.Save();
   }

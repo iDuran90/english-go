@@ -31,8 +31,8 @@ public static class EnglishGoConstants {
   public static List<ChallengePointDefinition> GetChallengePointDefinitions() {
     var challengePointDefinitions = new List<ChallengePointDefinition>();
 
-    challengePointDefinitions.Add(new ChallengePointDefinition("Conjunctions", 6.262078, -75.577539, 100, 50, 30));
-    challengePointDefinitions.Add(new ChallengePointDefinition("Adverbs", 6.264082, -75.576399, 100, 50, 30));
+    challengePointDefinitions.Add(new ChallengePointDefinition("Conjunctions", 6.262078, -75.577539, 100, 50, 4));
+    challengePointDefinitions.Add(new ChallengePointDefinition("Adverbs", 6.264082, -75.576399, 100, 50, 4));
     challengePointDefinitions.Add(new ChallengePointDefinition("Questions", 6.261651, -75.575890, 100, 50, 4));
 
     return challengePointDefinitions;

@@ -8,8 +8,8 @@ public class MenuUIManager : MonoBehaviour {
 	[SerializeField] private Text musicBtnTxt;
 	[SerializeField] private GameObject confirmQuitMenu;
 	
-	private Color activeTxtColor = new Color(192.0f/255.0f, 24.0f/255.0f, 44.0f/255.0f, 255.0f/255.0f);
-	private Color deactiveTxtColor = new Color(80.0f/255.0f, 80.0f/255.0f, 80.0f/255.0f, 150.0f/255.0f);
+	private Color activeTxtColor = new Color(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f);
+	private Color deactiveTxtColor = new Color(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 150.0f/255.0f);
 
 	public void OnResumeBtnClicked() {
 		GameManager.Instance.CurrentPlayer.menusLoadBlocked = false;

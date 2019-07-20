@@ -35,10 +35,14 @@ public class SearchPointFactory : Singleton<SearchPointFactory>
     if (GameManager.Instance.CurrentPlayer.currentMission == String.Empty) {
       foreach (var searchPoint in liveSearchPoints)
       {
-        searchPoint.gameObject.SetActive(true);
-        var position =
-          abstractMap.GeoToWorldPosition(new Vector2d(searchPoint.latitude, searchPoint.longitude));
-        searchPoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
+        if (GameManager.Instance.CurrentPlayer.completedMissions.Contains(searchPoint.SceneToTrigger)) {
+          searchPoint.gameObject.SetActive(false);  
+        } else {
+          searchPoint.gameObject.SetActive(true);
+          var position =
+            abstractMap.GeoToWorldPosition(new Vector2d(searchPoint.latitude, searchPoint.longitude));
+          searchPoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
+        }
       } 
     }
     else {

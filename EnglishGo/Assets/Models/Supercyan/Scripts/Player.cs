@@ -5,11 +5,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-  [SerializeField] private int xp = 0;
-  [SerializeField] private int requiredXp = 100;
-  [SerializeField] private int levelBase = 100;
-  [SerializeField] private List<string> progress = new List<string>();
-
+  public string level;
+  
+  public List<string> completedMissions = new List<string>();
   public bool displayLoading;
 
   public string currentMission = String.Empty;
@@ -37,7 +35,7 @@ public class Player : MonoBehaviour {
   public Inventory inventory;
 
   public int currentChallengeGems;
-  public int currentChallengesAccumulatedGems;
+  public int currentChallengeBestResultGems;
 
   private string userName;
 
@@ -53,30 +51,7 @@ public class Player : MonoBehaviour {
     set { userGender = value; }
   }
 
-  private int level = 1;
-
   private string path;
-
-  public int Xp {
-    get { return xp; }
-  }
-
-  public int RequiredXp
-  {
-    get { return requiredXp; }
-  }
-
-  public int LevelBase
-  {
-    get { return levelBase; }
-  }
-
-  public List<string> Progress
-  {
-    get { return progress; }
-  }
-
-  public int Level { get { return level; } }
 
   void Start () {
     path = Application.persistentDataPath + "/player.dat";
@@ -84,33 +59,36 @@ public class Player : MonoBehaviour {
     Load();
   }
 	
-  public void AddXp(int xp) {
-    this.xp += Mathf.Max(0, xp);
-
-    if (this.xp >= this.requiredXp) {
-      this.xp -= this.requiredXp;
-      this.level++;
+  private void SetLevel() {
+    if (gems > 249) {
+      level = "Trotamundos";
+    } else if (gems > 199) {
+      level = "Excursionista";
+    } else if (gems > 149) {
+      level = "Aventurero";
+    } else if (gems > 99) {
+      level = "Explorador";
+    } else if (gems > 49) {
+      level = "Buscador";
     }
-
-    Save();
   }
 
-  public void AddProgress(string newProgress) {
-    if (!progress.Contains(newProgress)) {
-      progress.Add(newProgress);
+  public void AddNewCompletedMission(string newCompletedMission) {
+    completedMissions.Add(newCompletedMission);
       
-      Save();
-    }
+    Save();
   }
 
   public void AddCoins(int coinsToAdd) {
     coins += coinsToAdd;
-      
+
     Save();
   }
   
   public void AddGems(int gemsToAdd = 25) {
     gems += gemsToAdd;
+    
+    SetLevel();
       
     Save();
   }
@@ -119,11 +97,6 @@ public class Player : MonoBehaviour {
     coins -= coinsToReduce;
       
     Save();
-  }
-
-  private void InitLevelData() {
-    level = (xp / levelBase) + 1;
-    requiredXp = levelBase * level;
   }
 
   public void Save() {
@@ -144,24 +117,20 @@ public class Player : MonoBehaviour {
 
       showOnBoardMenu = data.ShowOnBoardMenu;
       showTutorialMenu = data.ShowTutorialMenu;
-      xp = data.Xp;
-      requiredXp = data.RequiredXp;
-      levelBase = data.LevelBase;
       level = data.Level;
       userName = data.UserName;
       userGender = data.UserGender;
       muteSounds = data.MuteSounds;
-      progress = data.Progress;
+      completedMissions = data.CompletedMissions;
       coins = data.BlueCoins;
       gems = data.BlueGems;
       currentMission = data.CurrentMission;
       currentMissionChallengesAttempts = data.CurrentMissionChallengesAttempts;
-      currentChallengesAccumulatedGems = data.CurrentChallengesAccumulatedGems;
+      currentChallengeBestResultGems = data.CurrentChallengeBestResultGems;
 
       inventory = new Inventory(data.Inventory);
     } else {
       showOnBoardMenu = true;
-      InitLevelData();
     }
   }
 }

@@ -6,25 +6,22 @@ using UnityEngine;
 
 [Serializable]
 public class PlayerData {
-  private int xp;
-  private int requiredXp;
-  private int levelBase;
-  private int level;
+  private string level;
   private bool showOnBoardMenu;
   private bool showTutorialMenu;
   private bool muteSounds;
   private string userName;
   private string userGender;
-  private List<string> progress;
+  private List<string> completedMissions;
   private int coins;
   private int gems;
   private InventoryData inventory;
   private string currentMission;
   private int currentMissionChallengesAttempts;
-  private int currentChallengesAccumulatedGems;
+  private int currentChallengeBestResultGems;
 
-  public int CurrentChallengesAccumulatedGems {
-    get { return currentChallengesAccumulatedGems; }
+  public int CurrentChallengeBestResultGems {
+    get { return currentChallengeBestResultGems; }
   }
 
   public int CurrentMissionChallengesAttempts {
@@ -41,14 +38,11 @@ public class PlayerData {
 
   public string UserName { get { return userName; } }
   public string UserGender { get { return userGender; } }
-  public int Xp { get { return xp; } }
-  public int RequiredXp { get { return requiredXp; } }
-  public int LevelBase { get { return levelBase; } }
-  public int Level { get { return level; } }
+  public string Level { get { return level; } }
   public bool ShowOnBoardMenu { get { return showOnBoardMenu; } }
   public bool ShowTutorialMenu { get { return showTutorialMenu; } }
   public bool MuteSounds { get { return muteSounds; } }
-  public List<string> Progress { get { return progress; } }
+  public List<string> CompletedMissions { get { return completedMissions; } }
   public int BlueCoins { get { return coins; } }
   public int BlueGems { get { return gems; } }
   
@@ -56,19 +50,16 @@ public class PlayerData {
   public PlayerData(Player player) {
     showOnBoardMenu = player.showOnBoardMenu;
     showTutorialMenu = player.showTutorialMenu;
-    xp = player.Xp;
-    requiredXp = player.RequiredXp;
-    levelBase = player.LevelBase;
-    level = player.Level;
+    level = player.level;
     userName = player.UserName;
     userGender = player.UserGender;
     muteSounds = player.muteSounds;
-    progress = player.Progress;
+    completedMissions = player.completedMissions;
     coins = player.coins;
     gems = player.gems;
     currentMission = player.currentMission;
     currentMissionChallengesAttempts = player.currentMissionChallengesAttempts;
-    currentChallengesAccumulatedGems = player.currentChallengesAccumulatedGems;
+    currentChallengeBestResultGems = player.currentChallengeBestResultGems;
 
     inventory = new InventoryData(player.inventory);
   }

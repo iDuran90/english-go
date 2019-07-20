@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Lesson : MonoBehaviour {
   public ParchmentsUIManager parchmentMngr;
+  public InventoryUIManager inventoryMngr;
   public string bookId;
   public string parchmentId;
 
@@ -13,6 +14,10 @@ public class Lesson : MonoBehaviour {
   private int currentSheet;
 
   private void OnEnable() {
+    if (inventoryMngr != null) {
+      inventoryMngr.gameObject.SetActive(false);
+    }
+
     if (sheets.Count > 0) {
       sheets[0].gameObject.SetActive(true);
       currentSheet = 0;
@@ -39,8 +44,13 @@ public class Lesson : MonoBehaviour {
       gameObject.SetActive(false);
 
       GameManager.Instance.CurrentPlayer.viewingLesson = false;
-      
-      parchmentMngr.LoadNextParchemnt();
+
+      if (parchmentMngr != null) {
+        parchmentMngr.LoadNextParchemnt();
+      } else {
+        inventoryMngr.booksObj.SetActive(false);
+        inventoryMngr.gameObject.SetActive(true);
+      }
     }
   }
 }

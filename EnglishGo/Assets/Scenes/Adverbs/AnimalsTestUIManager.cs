@@ -34,12 +34,12 @@ public class AnimalsTestUIManager : MonoBehaviour {
       questionIndex++;
       questions[questionIndex].SetActive(true);  
     } else {
-      GameManager.Instance.CurrentPlayer.AddProgress(GameManager.Instance.CurrentPlayer.currentChallenge + "Exercise");
+      GameManager.Instance.CurrentPlayer.AddNewCompletedMission(GameManager.Instance.CurrentPlayer.currentChallenge + "Exercise");
       if (correctAnswers == 4) {
-        GameManager.Instance.CurrentPlayer.AddProgress(GameManager.Instance.CurrentPlayer.currentChallenge + "Star");
+        GameManager.Instance.CurrentPlayer.AddNewCompletedMission(GameManager.Instance.CurrentPlayer.currentChallenge + "Star");
         GameManager.Instance.CurrentPlayer.afterChallenge = EnglishGoConstants.GetExcellentMsg();
       } else if (correctAnswers == 3) {
-        GameManager.Instance.CurrentPlayer.AddProgress(GameManager.Instance.CurrentPlayer.currentChallenge + "Star");
+        GameManager.Instance.CurrentPlayer.AddNewCompletedMission(GameManager.Instance.CurrentPlayer.currentChallenge + "Star");
         GameManager.Instance.CurrentPlayer.afterChallenge = EnglishGoConstants.GetVeryGoodMsg();
       } else {
         GameManager.Instance.CurrentPlayer.afterChallenge = EnglishGoConstants.GetBadMsg();
