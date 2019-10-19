@@ -12,10 +12,17 @@ public class Lesson : MonoBehaviour {
   public List<LessonSheet> sheets;
 
   private int currentSheet;
+  private bool soundMutedByMe;
 
   private void OnEnable() {
     if (inventoryMngr != null) {
       inventoryMngr.gameObject.SetActive(false);
+      soundMutedByMe = false;
+
+      if (!GameManager.Instance.CurrentPlayer.muteSounds) {
+        soundMutedByMe = true;
+        GameManager.Instance.CurrentPlayer.muteSounds = true;
+      }
     }
 
     if (sheets.Count > 0) {
@@ -36,6 +43,10 @@ public class Lesson : MonoBehaviour {
       int bookIdx = GameManager.Instance.CurrentPlayer.inventory.books.FindIndex(x => x.id == bookId);
       int parchmentIdx = GameManager.Instance.CurrentPlayer.inventory.books[bookIdx].parchments
         .FindIndex(x => x.id == parchmentId);
+
+      if (soundMutedByMe) {
+        GameManager.Instance.CurrentPlayer.muteSounds = false;
+      }
 
       GameManager.Instance.CurrentPlayer.inventory.books[bookIdx].parchments[parchmentIdx].collected = true;
       GameManager.Instance.CurrentPlayer.Save();

@@ -21,9 +21,8 @@ public static class EnglishGoConstants {
   public static List<SearchPointDefinition> GetSearchPointDefinitions() {
     var searchPointDefinitions = new List<SearchPointDefinition>();
 
-    searchPointDefinitions.Add(new SearchPointDefinition("Conjunctions", 6.261578, -75.577539, 200));
-    searchPointDefinitions.Add(new SearchPointDefinition("Adverbs", 6.263482, -75.576399, 200));
-    searchPointDefinitions.Add(new SearchPointDefinition("Questions", 6.261251, -75.576290, 200));
+    searchPointDefinitions.Add(new SearchPointDefinition("EntryPoint1", 6.2617015, -75.5777261, 200));
+    searchPointDefinitions.Add(new SearchPointDefinition("EntryPoint2", 6.2619105, -75.5771654, 200));
 
     return searchPointDefinitions;
   }
@@ -31,9 +30,8 @@ public static class EnglishGoConstants {
   public static List<ChallengePointDefinition> GetChallengePointDefinitions() {
     var challengePointDefinitions = new List<ChallengePointDefinition>();
 
-    challengePointDefinitions.Add(new ChallengePointDefinition("Conjunctions", 6.262078, -75.577539, 100, 50, 4));
-    challengePointDefinitions.Add(new ChallengePointDefinition("Adverbs", 6.264082, -75.576399, 100, 50, 4));
-    challengePointDefinitions.Add(new ChallengePointDefinition("Questions", 6.261651, -75.575890, 100, 50, 4));
+    challengePointDefinitions.Add(new ChallengePointDefinition("Comparatives", 6.262215, -75.577375, 100, 50, 4));
+    challengePointDefinitions.Add(new ChallengePointDefinition("Superlatives", 6.2625282, -75.5772811, 200, 50, 4));
 
     return challengePointDefinitions;
   }

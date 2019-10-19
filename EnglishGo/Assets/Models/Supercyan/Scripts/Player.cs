@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
   public string startSearch = String.Empty;
   public string currentSearch = String.Empty;
   public string afterSearch = String.Empty;
+  public string entryPointInUse = String.Empty;
 
   public string startChallenge = String.Empty;
   public string currentChallenge = String.Empty;
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour {
   public bool menusLoadBlocked;
   public int coins = 0;
   public int gems = 0;
+  public bool displayGameCompleted;
 
   public Inventory inventory;
 
@@ -127,6 +129,7 @@ public class Player : MonoBehaviour {
       currentMission = data.CurrentMission;
       currentMissionChallengesAttempts = data.CurrentMissionChallengesAttempts;
       currentChallengeBestResultGems = data.CurrentChallengeBestResultGems;
+      entryPointInUse = data.EntryPointInUse;
 
       inventory = new Inventory(data.Inventory);
     } else {

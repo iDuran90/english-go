@@ -12,6 +12,7 @@ public class SearchPointFactory : Singleton<SearchPointFactory>
   private List<SearchPoint> liveSearchPoints = new List<SearchPoint>();
   private List<SearchPointDefinition> searchPointDefinitions;
   private Player player;
+  private bool gameCompletedMessageDisplayed;
 
   private void Awake()
   {
@@ -28,6 +29,8 @@ public class SearchPointFactory : Singleton<SearchPointFactory>
     {
       InstantiateTeacher(searchPoints[i]);
     }
+
+    ValidateGameCompleted();
   }
 
   private void Update()
@@ -35,7 +38,7 @@ public class SearchPointFactory : Singleton<SearchPointFactory>
     if (GameManager.Instance.CurrentPlayer.currentMission == String.Empty) {
       foreach (var searchPoint in liveSearchPoints)
       {
-        if (GameManager.Instance.CurrentPlayer.completedMissions.Contains(searchPoint.SceneToTrigger)) {
+        if (GameManager.Instance.CurrentPlayer.completedMissions.Contains(searchPoint.id)) {
           searchPoint.gameObject.SetActive(false);  
         } else {
           searchPoint.gameObject.SetActive(true);
@@ -43,7 +46,9 @@ public class SearchPointFactory : Singleton<SearchPointFactory>
             abstractMap.GeoToWorldPosition(new Vector2d(searchPoint.latitude, searchPoint.longitude));
           searchPoint.transform.localPosition = new Vector3(position.x, 1.2f, position.z);
         }
-      } 
+      }
+
+      ValidateGameCompleted();
     }
     else {
       foreach (var searchPoint in liveSearchPoints) {
@@ -55,10 +60,19 @@ public class SearchPointFactory : Singleton<SearchPointFactory>
   private void InstantiateTeacher(SearchPoint searchPoint) {
     var instance = Instantiate(searchPoint);
 
-    SearchPointDefinition definition = searchPointDefinitions.Find(x => x.id == searchPoint.SceneToTrigger);
+    SearchPointDefinition definition = searchPointDefinitions.Find(x => x.id == searchPoint.id);
     instance.latitude = definition.lat;
     instance.longitude = definition.lon;
 
     liveSearchPoints.Add(instance);
+  }
+
+  private void ValidateGameCompleted() {
+    if (GameManager.Instance.CurrentPlayer.completedMissions.Count == 2 &&
+        !gameCompletedMessageDisplayed) {
+      gameCompletedMessageDisplayed = true;
+      GameManager.Instance.CurrentPlayer.displayGameCompleted = true;
+    }
+        
   }
 }

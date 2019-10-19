@@ -16,14 +16,16 @@ public class AfterChallengeMenuUIManager : MonoBehaviour {
 			GameManager.Instance.CurrentPlayer.AddGems(GameManager.Instance.CurrentPlayer.currentChallengeBestResultGems);
 			GameManager.Instance.CurrentPlayer.currentChallengeBestResultGems = 0;
 
-			GameManager.Instance.CurrentPlayer.AddNewCompletedMission(GameManager.Instance.CurrentPlayer.currentMission);
+			GameManager.Instance.CurrentPlayer.AddNewCompletedMission(GameManager.Instance.CurrentPlayer.entryPointInUse);
+			GameManager.Instance.CurrentPlayer.entryPointInUse = String.Empty;
 			GameManager.Instance.CurrentPlayer.currentMission = String.Empty;
+			GameManager.Instance.CurrentPlayer.currentMissionChallengesAttempts = 0;
 			GameManager.Instance.CurrentPlayer.Save();
 		}
 		
 		GameManager.Instance.CurrentPlayer.currentChallengeGems = 0;
 		GameManager.Instance.CurrentPlayer.afterChallenge = String.Empty;
-		
+
 		gameObject.SetActive(false);
 	}
 	

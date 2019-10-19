@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MenuUIManager : MonoBehaviour {
 	[SerializeField] private Text musicBtnTxt;
 	[SerializeField] private GameObject confirmQuitMenu;
+	[SerializeField] private GameObject creditsMenu;
 	
 	private Color activeTxtColor = new Color(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f);
 	private Color deactiveTxtColor = new Color(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 150.0f/255.0f);
@@ -34,6 +35,11 @@ public class MenuUIManager : MonoBehaviour {
 		confirmQuitMenu.SetActive(true);
 	}
 	
+	public void OnCreditsBtnClicked() {
+		gameObject.SetActive(false);
+		creditsMenu.SetActive(true);
+	}
+	
 	public void OnConfirmQuitBtnClicked() {
 		Application.Quit();
 	}
@@ -41,6 +47,11 @@ public class MenuUIManager : MonoBehaviour {
 	public void OnRevertQuitBtnClicked() {
 		gameObject.SetActive(true);
 		confirmQuitMenu.SetActive(false);
+	}
+	
+	public void OnAcceptCreditsBtnClicked() {
+		gameObject.SetActive(true);
+		creditsMenu.SetActive(false);
 	}
 
 	public void OnOpenBtnClicked() {

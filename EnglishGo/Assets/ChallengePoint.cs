@@ -10,7 +10,7 @@ public class ChallengePoint : MonoBehaviour {
     get { return missionId; }
   }
 
-  private const double DISTANCE_THRESHOLD = 0.009; // 0.0002
+  private const double DISTANCE_THRESHOLD = 0.0002; // 0.0002
 
   public double latitude { get; set; }
   public double longitude { get; set; }

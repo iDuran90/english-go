@@ -4,20 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SearchPoint : MonoBehaviour {
-  [SerializeField] private string sceneToTrigger;
+  public string id;
 
   private const double DISTANCE_THRESHOLD = 0.0002; // 0.0002
 
   public double latitude { get; set; }
   public double longitude { get; set; }
-
-  public string SceneToTrigger
-  {
-    get
-    {
-      return sceneToTrigger;
-    }
-  }
 
   private void OnMouseDown() {
     if (!GameManager.Instance.CurrentPlayer.menusLoadBlocked) {
@@ -26,10 +18,21 @@ public class SearchPoint : MonoBehaviour {
       double distanceToPlayer = Vector2d.Distance(new Vector2d(this.latitude, this.longitude), playerLocation);
 
       if (distanceToPlayer < DISTANCE_THRESHOLD  || GameManager.Instance.CurrentPlayer.UserName == "Random2905") {
-        GameManager.Instance.CurrentPlayer.startSearch = SceneToTrigger;
+        var comparativeParchmentsCollected = GameManager.Instance.CurrentPlayer.inventory.books
+          .Find(x => x.id == "Comparatives").parchments.FindAll(x => x.collected);
+
+        GameManager.Instance.CurrentPlayer.entryPointInUse = id;
+
+        if (comparativeParchmentsCollected.Count == GameManager.Instance.CurrentPlayer.inventory.books
+              .Find(x => x.id == "Comparatives").parchments.Count) {
+          GameManager.Instance.CurrentPlayer.startSearch = "Superlatives"; 
+        }
+        else {
+          GameManager.Instance.CurrentPlayer.startSearch = "Comparatives";
+        }
       }
       else {
-        GameManager.Instance.CurrentPlayer.searchGetCloser = SceneToTrigger;
+        GameManager.Instance.CurrentPlayer.searchGetCloser = id;
       }
     }
   }

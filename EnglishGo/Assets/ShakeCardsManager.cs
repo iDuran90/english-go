@@ -1,30 +1,25 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
+using UnityRandom = UnityEngine.Random;
 
 public class ShakeCardsManager : MonoBehaviour {
 	public ChallengeDefinition challengeDef;
 
-	public Text txtA;
-	public Text txtB;
-
-	public string[] optionsA;
-	public string[] optionsB;
+	public Text answerContainer;
+	public String correctAnswer;
 
 	public Button validateBtn;
 
-	public string answerOptionA;
-	public string answerOptionB;
-	
 	public Text successTxt;
 	public Text failureTxt;
 	
 	private bool gameEnded;
 	private bool isShaking;
+	private bool firstThrowDone;
 	
 	private float accelerometerUpdateInterval = 1.0f / 60.0f;
 	private float lowPassKernelWidthInSeconds = 1.0f;
@@ -33,8 +28,7 @@ public class ShakeCardsManager : MonoBehaviour {
 	private float lowPassFilterFactor;
 	private Vector3 lowPassValue;
 
-	private List<Combination> displayedCombinations = new List<Combination>();
-	private Combination currentCombination;
+	public Rigidbody diceRB;
 	
 	private void Start() {
 		lowPassFilterFactor = accelerometerUpdateInterval / lowPassKernelWidthInSeconds;
@@ -49,21 +43,25 @@ public class ShakeCardsManager : MonoBehaviour {
 		failureTxt.gameObject.SetActive(false);
 		
 		validateBtn.interactable = false;
-		displayedCombinations.Clear();
-		
-		txtA.text = String.Empty;
-		txtB.text = String.Empty;
-		txtA.gameObject.SetActive(false);
-		txtB.gameObject.SetActive(false);
+		firstThrowDone = false;
+
+		answerContainer.text = String.Empty;
 	}
 
 	public void OnValidateBtnClicked() {
 		gameEnded = true;
 		
-		if (txtA.text == answerOptionA && txtB.text == answerOptionB) {
+		if (answerContainer.text == correctAnswer) {
 			successTxt.gameObject.SetActive(true);
+#if UNITY_ANDROID && !UNITY_EDITOR
+				long [] pattern = { 0, 200, 50, 200 };
+        Vibration.Vibrate ( pattern, -1 );
+#endif
 		} else {
 			failureTxt.gameObject.SetActive(true);
+#if UNITY_ANDROID && !UNITY_EDITOR
+        Vibration.Vibrate (800);
+#endif
 		}
 
 		StartCoroutine(WaitToEndGame());
@@ -72,83 +70,47 @@ public class ShakeCardsManager : MonoBehaviour {
 	private IEnumerator WaitToEndGame() {
 		yield return new WaitForSeconds(1f);
     
-		challengeDef.LoadNextGame(successTxt.gameObject.activeSelf ? 25 : 0);
+		challengeDef.LoadNextGame(successTxt.gameObject.activeSelf ? 100 : 0);
 	}
 	
 	void Update () {
+//		Debug.Log(diceRB.);
 		if (!gameEnded && !isShaking) {
 			Vector3 acceleration = Input.acceleration;
 			lowPassValue = Vector3.Lerp(lowPassValue, acceleration, lowPassFilterFactor);
 			Vector3 deltaAcceleration = acceleration - lowPassValue;
 
-			if (deltaAcceleration.sqrMagnitude >= shakeDetectionThreshold)
-			{
-				isShaking = true;
+			if (deltaAcceleration.sqrMagnitude >= shakeDetectionThreshold) {
 				StartCoroutine(ShakeCards());
 			}
 		}
 
-		validateBtn.interactable = displayedCombinations.Count != 0 && !isShaking;
-		
-		#if UNITY_EDITOR 
+		if (diceRB.velocity == new Vector3(0f, 0f, 0f)) {
+			isShaking = false;
+			validateBtn.interactable = firstThrowDone;
+		}
+
+#if UNITY_EDITOR 
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				isShaking = true;
 				StartCoroutine(ShakeCards());
 			}
 		#endif
 	}
 	
-	private IEnumerator ShakeCards() {
-		if (displayedCombinations.Count == (optionsA.Length * optionsB.Length)) {
-			displayedCombinations.Clear();	
-		}
+	public IEnumerator ShakeCards() {
+		firstThrowDone = true;
+		validateBtn.interactable = false;
+		isShaking = true;
 
-		if (!txtA.gameObject.activeSelf) {
-			txtA.gameObject.SetActive(true);
-			txtB.gameObject.SetActive(true);
-		}
+		float dirX = UnityRandom.Range (0, 500);
+		float dirY = UnityRandom.Range (0, 500);
+		float dirZ = UnityRandom.Range (0, 500);
+		transform.position = new Vector3 (0, 2, 0);
+		transform.rotation = Quaternion.identity;
+		diceRB.AddForce (transform.right * 50000);
+		diceRB.AddForce (transform.up * 50000);
+		diceRB.AddTorque (dirX, dirY, dirZ);
 
-		for (int i = 0; i < 20; i++) {
-			Random random = new Random();
-			int spriteAIdx = random.Next(0, optionsA.Length);
-			int spriteBIdx = random.Next(0, optionsB.Length);
-
-			txtA.text = optionsA[spriteAIdx];
-			txtB.text = optionsB[spriteBIdx];
-			
-			currentCombination = new Combination(spriteAIdx, spriteBIdx);
-			
-			yield return new WaitForSeconds(0.05f);
-		}
-
-		int displayedIdx = displayedCombinations.FindIndex(item => item.x == currentCombination.x && item.y == currentCombination.y);
-
-		while (displayedIdx != -1) {
-			Random random = new Random();
-			int spriteAIdx = random.Next(0, optionsA.Length);
-			int spriteBIdx = random.Next(0, optionsB.Length);
-
-			txtA.text = optionsA[spriteAIdx];
-			txtB.text = optionsB[spriteBIdx];
-			
-			currentCombination = new Combination(spriteAIdx, spriteBIdx);
-			
-			displayedIdx = displayedCombinations.FindIndex(item => item.x == currentCombination.x && item.y == currentCombination.y);
-		}
-
-		displayedCombinations.Add(currentCombination);
-		
-		isShaking = false;
-	}
-}
-
-public struct Combination
-{
-	public int x;
-	public int y;
-
-	public Combination(int x, int y) {
-		this.x = x;
-		this.y = y;
+		yield return new WaitForSeconds(2f);
 	}
 }

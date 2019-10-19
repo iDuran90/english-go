@@ -12,6 +12,12 @@ public class PlayerData {
   private bool muteSounds;
   private string userName;
   private string userGender;
+  private string entryPointInUse;
+
+  public string EntryPointInUse {
+    get { return entryPointInUse; }
+  }
+
   private List<string> completedMissions;
   private int coins;
   private int gems;
@@ -60,6 +66,7 @@ public class PlayerData {
     currentMission = player.currentMission;
     currentMissionChallengesAttempts = player.currentMissionChallengesAttempts;
     currentChallengeBestResultGems = player.currentChallengeBestResultGems;
+    entryPointInUse = player.entryPointInUse;
 
     inventory = new InventoryData(player.inventory);
   }

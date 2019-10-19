@@ -35,7 +35,12 @@ public class InventoryUIManager : MonoBehaviour {
 	}
 
 	public void OnInventoryItemClicked(InventoryItem item) {
-		booksObj.SetActive(true);
-		item.lessonUI.gameObject.SetActive(true);
+		int bookIdx = GameManager.Instance.CurrentPlayer.inventory.books.FindIndex(x => x.id == item.bookId);
+		int parchmentIdx = GameManager.Instance.CurrentPlayer.inventory.books[bookIdx].parchments.FindIndex(x => x.id == item.parchmentId);
+
+		if (GameManager.Instance.CurrentPlayer.inventory.books[bookIdx].parchments[parchmentIdx].collected) {
+			booksObj.SetActive(true);
+			item.lessonUI.gameObject.SetActive(true);
+		}
 	}
 }

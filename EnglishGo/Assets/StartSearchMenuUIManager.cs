@@ -20,7 +20,7 @@ public class StartSearchMenuUIManager : MonoBehaviour {
     GameManager.Instance.CurrentPlayer.currentSearch = GameManager.Instance.CurrentPlayer.startSearch;
     GameManager.Instance.CurrentPlayer.startSearch = String.Empty;
 
-    SceneManager.LoadSceneAsync(GameManager.Instance.CurrentPlayer.currentSearch);
+    SceneManager.LoadSceneAsync("ComparativesSuperlatives");
     SceneManager.sceneLoaded += (newScene, mode) => {
       GameManager.Instance.CurrentPlayer.displayLoading = false;
       SceneManager.SetActiveScene(newScene);

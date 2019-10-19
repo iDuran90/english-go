@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,15 +10,22 @@ public class ParchmentsUIManager : MonoBehaviour {
 	private int currentLoadedParchment;
 	
 	public void LoadNextParchemnt() {
-		if (parchments.Count > (currentLoadedParchment + 1)) {
-			parchments[currentLoadedParchment].gameObject.SetActive(false);
+		var currentParchments = parchments.FindAll(x => x.lesson.bookId == GameManager.Instance.CurrentPlayer.currentSearch);
+
+		if (currentParchments.Count > (currentLoadedParchment + 1)) {
+			currentParchments[currentLoadedParchment].gameObject.SetActive(false);
 			currentLoadedParchment += 1;
-			parchments[currentLoadedParchment].gameObject.SetActive(true);
+			currentParchments[currentLoadedParchment].gameObject.SetActive(true);
 		}
 		else {
-			parchments[currentLoadedParchment].gameObject.SetActive(false);
+			currentParchments[currentLoadedParchment].gameObject.SetActive(false);
+			currentLoadedParchment = 0;
 
 			endSearchUiMngr.gameObject.SetActive(true);
 		}
+	}
+
+	private void OnEnable() {
+		parchments.Find(x => x.lesson.bookId == GameManager.Instance.CurrentPlayer.currentSearch).gameObject.SetActive(true);
 	}
 }

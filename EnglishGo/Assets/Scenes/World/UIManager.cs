@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
   [SerializeField] private Text levelText;
   [SerializeField] private Text nameText;
-  [SerializeField] private GameObject menu;
   [SerializeField] private StarsSectionUIManager starsSectionManager;
   [SerializeField] private GameObject loadingCanvas;
 
@@ -19,7 +18,7 @@ public class UIManager : MonoBehaviour {
   [SerializeField] private AfterChallengeMenuUIManager afterChallengeManager;
   [SerializeField] private ChallengeGetCloserMenuUIManager challengeGetCloserManager;
 
-  [SerializeField] private FeedbackMenuManager feedbackMenu;
+  [SerializeField] private GameCompletedUIManager gameCompletedMenu;
 
   [SerializeField] private GameObject profileMenu;
 
@@ -70,6 +69,8 @@ public class UIManager : MonoBehaviour {
       }
       
       menuButton.SetActive(!GameManager.Instance.CurrentPlayer.menusLoadBlocked);
+      profileMenu.SetActive(!GameManager.Instance.CurrentPlayer.menusLoadBlocked);
+      starsSectionManager.section.SetActive(!GameManager.Instance.CurrentPlayer.menusLoadBlocked);
     }
 
     if (GameManager.Instance.CurrentPlayer.displayLoading) {
@@ -100,15 +101,19 @@ public class UIManager : MonoBehaviour {
       if (GameManager.Instance.CurrentPlayer.challengeGetCloser != String.Empty) {
         challengeGetCloserManager.gameObject.SetActive(true);
       }
+      
+      if (GameManager.Instance.CurrentPlayer.displayGameCompleted) {
+        gameCompletedMenu.gameObject.SetActive(true);
+      }
     }
     
-#if UNITY_EDITOR 
-    if (Input.GetKeyDown (KeyCode.Space)) {
-      anim.enabled = true;
-      anim.SetBool ("Leveling", true);
-      StartCoroutine(WaitToEnd());
-    }
-#endif
+//#if UNITY_EDITOR 
+//    if (Input.GetKeyDown (KeyCode.Space)) {
+//      anim.enabled = true;
+//      anim.SetBool ("Leveling", true);
+//      StartCoroutine(WaitToEnd());
+//    }
+//#endif
   }
   
   private IEnumerator WaitToEnd() {

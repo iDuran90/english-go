@@ -12,6 +12,7 @@ public class GiroBallManager : MonoBehaviour {
   public AudioSource audioA;
   public AudioSource audioB;
   public AudioSource audioC;
+  public AudioSource audioD;
   public Text successTxt;
   public Text failureTxt;
 	
@@ -52,9 +53,16 @@ public class GiroBallManager : MonoBehaviour {
 
         if (winner) {
           successTxt.gameObject.SetActive(true);
+#if UNITY_ANDROID && !UNITY_EDITOR
+				long [] pattern = { 0, 200, 50, 200 };
+        Vibration.Vibrate ( pattern, -1 );
+#endif
         }
         else if (losser) {
           failureTxt.gameObject.SetActive(true);
+#if UNITY_ANDROID && !UNITY_EDITOR
+        Vibration.Vibrate (800);
+#endif
         }
 
         gameEnded = true;
@@ -66,7 +74,7 @@ public class GiroBallManager : MonoBehaviour {
   private IEnumerator WaitToEnd() {
     yield return new WaitForSeconds(1f);
     
-    challengeDef.LoadNextGame(winner ? 25 : 0);
+    challengeDef.LoadNextGame(winner ? 100 : 0);
   }
 
   private void FixedUpdate()
@@ -102,8 +110,14 @@ public class GiroBallManager : MonoBehaviour {
       audioC.Play();
     }
   }
+  
+  public void OnPlayAudioD() {
+    if (!IsSomethingPlaying()) {
+      audioD.Play();
+    }
+  }
 
   private bool IsSomethingPlaying() {
-    return audioA.isPlaying || audioB.isPlaying || audioC.isPlaying;
+    return audioA.isPlaying || audioB.isPlaying || audioC.isPlaying || audioD.isPlaying;
   }
 }

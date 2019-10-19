@@ -57,29 +57,21 @@ public class OnboardMenuUIManager : MonoBehaviour {
   }
 
   private Inventory GetDefaultPlayerInventory() {
-    List<Parchment> adverbsParchments = new List<Parchment>();
-    adverbsParchments.Add(new Parchment("AdverbsBookParchment1"));
-    adverbsParchments.Add(new Parchment("AdverbsBookParchment2"));
-    adverbsParchments.Add(new Parchment("AdverbsBookParchment3"));
-    adverbsParchments.Add(new Parchment("AdverbsBookParchment4"));
+    List<Parchment> comparativeParchments = new List<Parchment>();
+    comparativeParchments.Add(new Parchment("ComparativesBookParchment1"));
+    comparativeParchments.Add(new Parchment("ComparativesBookParchment2"));
+    comparativeParchments.Add(new Parchment("ComparativesBookParchment3"));
+    comparativeParchments.Add(new Parchment("ComparativesBookParchment4"));
     
-    List<Parchment> conjunctionsParchments = new List<Parchment>();
-    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment1"));
-    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment2"));
-    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment3"));
-    conjunctionsParchments.Add(new Parchment("ConjunctionsBookParchment4"));
-    
-    List<Parchment> questionsParchments = new List<Parchment>();
-    questionsParchments.Add(new Parchment("QuestionsBookParchment1"));
-    questionsParchments.Add(new Parchment("QuestionsBookParchment2"));
-    questionsParchments.Add(new Parchment("QuestionsBookParchment3"));
-    questionsParchments.Add(new Parchment("QuestionsBookParchment4"));
+    List<Parchment> superlativeParchments = new List<Parchment>();
+    superlativeParchments.Add(new Parchment("SuperlativesBookParchment1"));
+    superlativeParchments.Add(new Parchment("SuperlativesBookParchment2"));
+    superlativeParchments.Add(new Parchment("SuperlativesBookParchment3"));
     
     List<Book> books = new List<Book>();
-    books.Add(new Book("Adverbs", adverbsParchments));
-    books.Add(new Book("Conjunctions", conjunctionsParchments));
-    books.Add(new Book("Questions", questionsParchments));
-    
+    books.Add(new Book("Comparatives", comparativeParchments));
+    books.Add(new Book("Superlatives", superlativeParchments));
+
     return new Inventory(books);
   }
 }
