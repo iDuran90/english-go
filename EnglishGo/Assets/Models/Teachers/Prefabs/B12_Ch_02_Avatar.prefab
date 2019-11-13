@@ -531,6 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4871829704553226}
   - component: {fileID: 95460210892447846}
+  - component: {fileID: 114251223152079612}
   m_Layer: 0
   m_Name: B12_Ch_02_Avatar
   m_TagString: Untagged
@@ -1008,7 +1009,7 @@ Transform:
   m_GameObject: {fileID: 1954534267710822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 500, y: 500, z: 500}
   m_Children:
   - {fileID: 4251702406644836}
   - {fileID: 4082367692587742}
@@ -1065,7 +1066,7 @@ Animator:
   m_GameObject: {fileID: 1954534267710822}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 30eacfcb4c137bf4a9aaa3266373bd9f, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 512a4ca60bae6a940bf8db03227a1ee0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1073,6 +1074,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114251223152079612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954534267710822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4cd74a21310a14e8cb8755e95c7dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToTrigger: Office
 --- !u!137 &137870872386787012
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class CameraARUIManager : MonoBehaviour {
   public void toggleScene()
   {
-    SceneManager.LoadSceneAsync(PocketDroidConstants.SCENE_WORLD);
+    SceneManager.LoadSceneAsync(EnglishGoConstants.SCENE_WORLD);
     SceneManager.sceneLoaded += (newScene, mode) => {
       SceneManager.SetActiveScene(newScene);
     };
